@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=3 uid="uid://1cg450i0jrns"]
+
+[ext_resource type="PackedScene" uid="uid://3ulvy8fx1w1x" path="res://planet/planet.tscn" id="1_tf1ba"]
+[ext_resource type="PackedScene" uid="uid://caafcqt0osnjl" path="res://ship/ship.tscn" id="1_yhm3d"]
+[ext_resource type="LabelSettings" uid="uid://cubigmnt6nnmi" path="res://retro_font.tres" id="2_dc7od"]
+[ext_resource type="Script" path="res://score/label.gd" id="4_wcleq"]
+[ext_resource type="Script" path="res://spawn_controller/spawn_controller.gd" id="5_rrgt6"]
+[ext_resource type="Script" path="res://spawn_controller/spawn_area.gd" id="6_i18uh"]
+[ext_resource type="Texture2D" uid="uid://30a8mvxwrmvo" path="res://menus/assets/space.png" id="7_l3wog"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odo18"]
+size = Vector2(20, 1150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xpva3"]
+size = Vector2(20, 550)
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="Planet" parent="." instance=ExtResource("1_tf1ba")]
+
+[node name="Ship" parent="." node_paths=PackedStringArray("planet") instance=ExtResource("1_yhm3d")]
+position = Vector2(0, 300)
+planet = NodePath("../Planet")
+gravity = -5.5
+gravity_increase = -0.5
+velocity = Vector2(200, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -71.5
+offset_top = -40.0
+offset_right = 71.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+text = "Score: "
+label_settings = ExtResource("2_dc7od")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_wcleq")
+
+[node name="SpawnController" type="Node2D" parent="." node_paths=PackedStringArray("meteor_spawn_areas", "power_spawn_areas", "target")]
+script = ExtResource("5_rrgt6")
+meteor_spawn_areas = [NodePath("LeftMeteorArea"), NodePath("RightMeteorArea")]
+power_spawn_areas = [NodePath("LeftPowerArea"), NodePath("RightPowerArea")]
+target = NodePath("../Planet")
+
+[node name="LeftMeteorArea" type="Area2D" parent="SpawnController"]
+position = Vector2(-360, 0)
+script = ExtResource("6_i18uh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnController/LeftMeteorArea"]
+shape = SubResource("RectangleShape2D_odo18")
+
+[node name="RightMeteorArea" type="Area2D" parent="SpawnController"]
+position = Vector2(360, 0)
+script = ExtResource("6_i18uh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnController/RightMeteorArea"]
+shape = SubResource("RectangleShape2D_odo18")
+
+[node name="LeftPowerArea" type="Area2D" parent="SpawnController"]
+position = Vector2(-380, -300)
+script = ExtResource("6_i18uh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnController/LeftPowerArea"]
+shape = SubResource("RectangleShape2D_xpva3")
+
+[node name="RightPowerArea" type="Area2D" parent="SpawnController"]
+position = Vector2(380, -300)
+script = ExtResource("6_i18uh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnController/RightPowerArea"]
+shape = SubResource("RectangleShape2D_xpva3")
+
+[node name="Space" type="Sprite2D" parent="."]
+show_behind_parent = true
+texture = ExtResource("7_l3wog")

@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://7kd16bufnlha"]
+
+[ext_resource type="Script" path="res://enemies/meteor.gd" id="1_mmw5e"]
+[ext_resource type="Script" path="res://enemies/meteor_area.gd" id="2_hx5jx"]
+[ext_resource type="PackedScene" uid="uid://bijgsy8j8eh7y" path="res://score/score.tscn" id="4_mfywi"]
+[ext_resource type="AudioStream" uid="uid://gsmlq2xt8v7j" path="res://enemies/assets/explosion.wav" id="5_ocvfs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sodqh"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3l5rw"]
+material = SubResource("StandardMaterial3D_sodqh")
+radius = 15.0
+height = 30.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0hxbf"]
+radius = 15.0
+
+[sub_resource type="Curve" id="Curve_a0wep"]
+_data = [Vector2(0.040146, 0.983881), 0.0, 0.0, 0, 0, Vector2(0.532847, 1), 0.0, 0.0, 0, 0, Vector2(0.981752, 0.194048), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_0turw"]
+_data = [Vector2(0, 0.66553), 0.0, 0.0, 0, 0, Vector2(0.616788, 0.806572), 0.0, 0.0, 0, 0, Vector2(0.850365, 0.230316), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_rh6ft"]
+offsets = PackedFloat32Array(0, 0.291667, 0.614583, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.8, 0, 0, 1, 1, 0.415686, 0.101961, 1, 0.995755, 0.473083, 0.36487, 1)
+
+[node name="Meteor" type="Node2D" node_paths=PackedStringArray("area", "mesh", "explosion", "explode_sound", "score")]
+script = ExtResource("1_mmw5e")
+area = NodePath("Mesh/Area")
+mesh = NodePath("Mesh")
+explosion = NodePath("Explode")
+explode_sound = NodePath("ExplodeSound")
+score = NodePath("Score")
+
+[node name="Mesh" type="MeshInstance2D" parent="."]
+mesh = SubResource("SphereMesh_3l5rw")
+
+[node name="Area" type="Area2D" parent="Mesh"]
+script = ExtResource("2_hx5jx")
+
+[node name="CS" type="CollisionShape2D" parent="Mesh/Area"]
+shape = SubResource("CircleShape2D_0hxbf")
+
+[node name="Explode" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 50
+lifetime = 0.7
+one_shot = true
+explosiveness = 0.8
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 80.0
+angle_max = 360.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_a0wep")
+
+[node name="ExplodeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ocvfs")
+
+[node name="Trail" type="CPUParticles2D" parent="."]
+show_behind_parent = true
+amount = 50
+gravity = Vector2(0, 0)
+angle_max = 180.0
+scale_amount_min = 10.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_0turw")
+color_ramp = SubResource("Gradient_rh6ft")
+
+[node name="Score" parent="." instance=ExtResource("4_mfywi")]

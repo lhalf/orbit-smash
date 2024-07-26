@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cubigmnt6nnmi"]
+
+[ext_resource type="FontFile" uid="uid://b8s761ya8undy" path="res://retro_font.ttf" id="1_xm465"]
+
+[resource]
+font = ExtResource("1_xm465")
+font_size = 30
+outline_size = 20
+outline_color = Color(0, 1, 0, 0.392157)

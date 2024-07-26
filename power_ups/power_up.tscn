@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://2nlxbxf4n538"]
+
+[ext_resource type="Script" path="res://power_ups/power_up.gd" id="1_vcily"]
+[ext_resource type="Script" path="res://power_ups/power_up_area.gd" id="2_qtqyl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w5u4t"]
+size = Vector3(30, 30, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7brp"]
+size = Vector2(30, 30)
+
+[node name="PowerUp" type="Node2D" node_paths=PackedStringArray("area", "mesh", "timer")]
+script = ExtResource("1_vcily")
+area = NodePath("Mesh/Area")
+mesh = NodePath("Mesh")
+timer = NodePath("Timeout")
+
+[node name="Mesh" type="MeshInstance2D" parent="."]
+mesh = SubResource("BoxMesh_w5u4t")
+
+[node name="Area" type="Area2D" parent="Mesh"]
+script = ExtResource("2_qtqyl")
+
+[node name="CS" type="CollisionShape2D" parent="Mesh/Area"]
+shape = SubResource("RectangleShape2D_o7brp")
+
+[node name="Timeout" type="Timer" parent="."]
+one_shot = true
