@@ -22,6 +22,7 @@ size = Vector2(20, 550)
 
 [node name="Ship" parent="." node_paths=PackedStringArray("planet") instance=ExtResource("1_yhm3d")]
 position = Vector2(0, 300)
+rotation = -2.29511
 planet = NodePath("../Planet")
 gravity = -5.5
 gravity_increase = -0.5

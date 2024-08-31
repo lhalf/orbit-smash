@@ -16,8 +16,6 @@ class_name Meteor extends Node2D
 @export_category("Score")
 @export var score: Score
 
-signal exploded
-
 var target_position: Vector2
 var t: float = 0.0
 
@@ -35,3 +33,4 @@ func explode(with_score: int):
 	mesh.hide()
 	explosion.emitting = true
 	explode_sound.play()
+	Messenger.meteor_exploded.emit()

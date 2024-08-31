@@ -1,24 +1,19 @@
-[gd_scene load_steps=15 format=3 uid="uid://caafcqt0osnjl"]
+[gd_scene load_steps=13 format=3 uid="uid://caafcqt0osnjl"]
 
 [ext_resource type="Script" path="res://ship/ship.gd" id="1_06dsp"]
 [ext_resource type="AudioStream" uid="uid://d3ipq4nmmdoig" path="res://ship/assets/charge.wav" id="2_7bgck"]
 [ext_resource type="Script" path="res://ship/indicator.gd" id="3_tdd68"]
-[ext_resource type="Texture2D" uid="uid://b0xqhuhgtedm" path="res://ship/assets/arrow.png" id="4_76twb"]
 [ext_resource type="Script" path="res://ship/DEBUG_LABEL.gd" id="4_mkmx0"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_74gab"]
-size = Vector2(40, 40)
+[sub_resource type="PrismMesh" id="PrismMesh_g7u46"]
+size = Vector3(30, 30, 1)
 
 [sub_resource type="Curve" id="Curve_dxakg"]
 _data = [Vector2(0.00364964, 1), 0.0, 0.0, 0, 0, Vector2(0.222628, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.210167), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="Gradient" id="Gradient_lxvqm"]
-offsets = PackedFloat32Array(0, 0.375, 0.796875)
-colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 0.417375, 0.0374848, 1)
-
-[sub_resource type="QuadMesh" id="QuadMesh_nmydl"]
-size = Vector2(100, 50)
+[sub_resource type="PrismMesh" id="PrismMesh_noi0t"]
+size = Vector3(80, 40, 1)
 
 [sub_resource type="Animation" id="Animation_pp4wn"]
 length = 0.001
@@ -65,19 +60,18 @@ point_count = 4
 offsets = PackedFloat32Array(0, 0.46875, 1)
 colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 
-[node name="Ship" type="Node2D" node_paths=PackedStringArray("mesh", "charge_sound", "charge_timer", "trail_particles", "explode_particles", "power_up_timer")]
+[node name="Ship" type="Node2D" node_paths=PackedStringArray("mesh", "charge_sound", "charge_timer", "trail_particles", "charge_particles", "explode_particles", "power_up_timer")]
 script = ExtResource("1_06dsp")
 mesh = NodePath("Mesh")
 charge_sound = NodePath("ChargeSound")
 charge_timer = NodePath("ChargeTimer")
 trail_particles = NodePath("Trail")
+charge_particles = NodePath("ChargeTrail")
 explode_particles = NodePath("Explode")
 power_up_timer = NodePath("PowerUpTimer")
 
 [node name="Mesh" type="MeshInstance2D" parent="."]
-rotation = 1.5708
-mesh = SubResource("QuadMesh_74gab")
-texture = ExtResource("4_76twb")
+mesh = SubResource("PrismMesh_g7u46")
 
 [node name="ChargeSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_7bgck")
@@ -99,7 +93,6 @@ one_shot = true
 [node name="Trail" type="CPUParticles2D" parent="."]
 show_behind_parent = true
 position = Vector2(0, -12.04)
-amount = 50
 direction = Vector2(0, -1)
 spread = 0.0
 gravity = Vector2(0, 0)
@@ -107,9 +100,24 @@ initial_velocity_min = 100.0
 initial_velocity_max = 100.0
 angle_max = 360.0
 scale_amount_min = 5.0
-scale_amount_max = 5.0
+scale_amount_max = 15.0
 scale_amount_curve = SubResource("Curve_dxakg")
-color_ramp = SubResource("Gradient_lxvqm")
+
+[node name="ChargeTrail" type="CPUParticles2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, -12.04)
+emitting = false
+amount = 30
+lifetime = 0.3
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angle_max = 360.0
+scale_amount_min = 5.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_dxakg")
 
 [node name="Visible" type="VisibleOnScreenNotifier2D" parent="."]
 
@@ -127,10 +135,9 @@ top_level = true
 
 [node name="Mesh" type="MeshInstance2D" parent="Indicator/Rotate"]
 position = Vector2(64, 0)
-rotation = 3.14159
+rotation = 1.5708
 scale = Vector2(0.094, 0.195)
-mesh = SubResource("QuadMesh_nmydl")
-texture = ExtResource("4_76twb")
+mesh = SubResource("PrismMesh_noi0t")
 
 [node name="Grow" type="AnimationPlayer" parent="Indicator"]
 libraries = {

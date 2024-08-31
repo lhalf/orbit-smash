@@ -16,6 +16,7 @@ extends Node2D
 
 @export_category("Animations")
 @export var trail_particles: CPUParticles2D
+@export var charge_particles: CPUParticles2D
 @export var explode_particles: CPUParticles2D
 
 @export_category("Scoring")
@@ -50,7 +51,7 @@ func _on_charge():
 	if charge_timer.is_stopped():
 		charge_timer.start(charge_timeout)
 	gravity += gravity_increase 
-	trail_particles.initial_velocity_max = 200
+	charge_particles.emitting = true
 
 func _off_charge():
 	if charge_sound.playing:
@@ -58,7 +59,7 @@ func _off_charge():
 	if !charge_timer.is_stopped():
 		charge_timer.stop()
 	gravity = initial_gravity
-	trail_particles.initial_velocity_max = 100
+	charge_particles.emitting = false
 
 func _movement(delta: float):
 	position += velocity*delta
@@ -78,7 +79,6 @@ func _handle_meteor_impact(meteor: Meteor):
 	var score = int(position.length()/score_distance_divider)
 	score = 1 if score == 0 else score
 	meteor.explode(score)
-	Messenger.meteor_exploded.emit()
 
 func _handle_power_up_impact(power_up: PowerUp):
 	power_up.on_hit()
