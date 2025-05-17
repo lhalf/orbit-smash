@@ -8,9 +8,6 @@ func _ready() -> void:
 		Scores.save_highscore()
 	hiscore_label.text = Scores.initial_hiscore_text + str(Scores.load_highscore())
 
-func set_hiscore() -> void:
-	pass
-
 func _on_restart_pressed():
 	Scores.reset()
 	get_tree().call_deferred("change_scene_to_packed", game_scene)

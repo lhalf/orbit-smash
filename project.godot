@@ -11,17 +11,17 @@ config_version=5
 [application]
 
 config/name="orbit_smash"
-run/main_scene="res://menus/menu.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+run/main_scene="uid://1cg450i0jrns"
+config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Scores="*res://scores.gd"
-Messenger="*res://messenger.gd"
-PowerUps="*res://power_ups.gd"
-MeteorViewport="*res://enemies/meteor_viewport.tscn"
+Scores="*res://global/scores.gd"
+Messenger="*res://global/messenger.gd"
+PowerUps="*res://global/power_ups.gd"
 NukeViewport="*res://power_ups/nuke/nuke_viewport.tscn"
+MeteorViewport="*res://enemies/meteor_viewport.tscn"
 
 [debug]
 

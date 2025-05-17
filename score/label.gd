@@ -6,3 +6,4 @@ func _ready() -> void:
 
 func update(new_text: String) -> void:
 	text = new_text
+	%UIAnimations.play("score_pop")

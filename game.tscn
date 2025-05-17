@@ -1,12 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://1cg450i0jrns"]
+[gd_scene load_steps=21 format=3 uid="uid://1cg450i0jrns"]
 
+[ext_resource type="Script" uid="uid://bwph7yj3amotd" path="res://game.gd" id="1_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://3ulvy8fx1w1x" path="res://planet/planet.tscn" id="1_tf1ba"]
 [ext_resource type="PackedScene" uid="uid://caafcqt0osnjl" path="res://ship/ship.tscn" id="1_yhm3d"]
-[ext_resource type="LabelSettings" uid="uid://cubigmnt6nnmi" path="res://retro_font.tres" id="2_dc7od"]
-[ext_resource type="Script" path="res://score/label.gd" id="4_wcleq"]
-[ext_resource type="Script" path="res://spawn_controller/spawn_controller.gd" id="5_rrgt6"]
-[ext_resource type="Script" path="res://spawn_controller/spawn_area.gd" id="6_i18uh"]
+[ext_resource type="LabelSettings" uid="uid://cubigmnt6nnmi" path="res://themes/retro_font.tres" id="2_dc7od"]
+[ext_resource type="Script" uid="uid://cmp1g3naeodo7" path="res://score/label.gd" id="4_wcleq"]
+[ext_resource type="Script" uid="uid://b8b3oexddy74q" path="res://spawn_controller/spawn_controller.gd" id="5_rrgt6"]
+[ext_resource type="Script" uid="uid://cfuaceal3lub0" path="res://menus/orbiting_text.gd" id="6_hve3p"]
+[ext_resource type="Script" uid="uid://cnbdw6psen1ir" path="res://spawn_controller/spawn_area.gd" id="6_i18uh"]
 [ext_resource type="Texture2D" uid="uid://30a8mvxwrmvo" path="res://menus/assets/space.png" id="7_l3wog"]
+[ext_resource type="FontFile" uid="uid://b8s761ya8undy" path="res://themes/retro_font.ttf" id="7_mfdv2"]
+[ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://themes/retro_theme.tres" id="8_vef74"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odo18"]
 size = Vector2(20, 1150)
@@ -14,13 +18,146 @@ size = Vector2(20, 1150)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpva3"]
 size = Vector2(20, 550)
 
+[sub_resource type="Animation" id="Animation_hve3p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%PlayButton:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%PlayButton:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Score:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vef74"]
+resource_name = "play_button_wobble"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%PlayButton:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.174533, 0.0, -0.174533, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%PlayButton:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mfdv2"]
+resource_name = "score_pop"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Score:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mfdv2"]
+_data = {
+&"RESET": SubResource("Animation_hve3p"),
+&"play_button_wobble": SubResource("Animation_vef74"),
+&"score_pop": SubResource("Animation_mfdv2")
+}
+
+[sub_resource type="Animation" id="Animation_lc2xo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%UIAnimations/../../Camera:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_iotsf"]
+resource_name = "zoom_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%UIAnimations/../../Camera:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lc2xo"]
+_data = {
+&"RESET": SubResource("Animation_lc2xo"),
+&"zoom_out": SubResource("Animation_iotsf")
+}
+
 [node name="Game" type="Node2D"]
+script = ExtResource("1_j5wjh")
 
 [node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(8, 8)
 
 [node name="Planet" parent="." instance=ExtResource("1_tf1ba")]
+process_mode = 3
 
 [node name="Ship" parent="." node_paths=PackedStringArray("planet") instance=ExtResource("1_yhm3d")]
+unique_name_in_owner = true
+visible = false
 position = Vector2(0, 300)
 rotation = -2.29511
 planet = NodePath("../Planet")
@@ -63,8 +200,25 @@ script = ExtResource("6_i18uh")
 shape = SubResource("RectangleShape2D_xpva3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Title" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -110.0
+offset_top = -185.0
+offset_right = -110.0
+offset_bottom = -185.0
+scale = Vector2(1.335, 1.335)
+script = ExtResource("6_hve3p")
+radius = 230.0
+font = ExtResource("7_mfdv2")
+font_size = 50
 
 [node name="Score" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -75,6 +229,7 @@ offset_top = -40.0
 offset_right = 71.5
 grow_horizontal = 2
 grow_vertical = 0
+pivot_offset = Vector2(72.5, 20)
 size_flags_horizontal = 4
 text = "Score: "
 label_settings = ExtResource("2_dc7od")
@@ -82,7 +237,37 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("4_wcleq")
 
+[node name="PlayButton" type="Button" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 155.0
+offset_top = 938.0
+offset_right = 501.0
+offset_bottom = 1076.0
+pivot_offset = Vector2(173, 69)
+size_flags_vertical = 3
+theme = ExtResource("8_vef74")
+theme_override_font_sizes/font_size = 100
+action_mode = 0
+text = "PLAY"
+flat = true
+
+[node name="UIAnimations" type="AnimationPlayer" parent="CanvasLayer"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_mfdv2")
+}
+autoplay = "play_button_wobble"
+
 [node name="Space" type="Sprite2D" parent="."]
 show_behind_parent = true
 texture = ExtResource("7_l3wog")
 metadata/_edit_lock_ = true
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../CanvasLayer/UIAnimations")
+libraries = {
+&"": SubResource("AnimationLibrary_lc2xo")
+}
+
+[connection signal="pressed" from="CanvasLayer/PlayButton" to="." method="start"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bijgsy8j8eh7y"]
 
-[ext_resource type="Script" path="res://score/score.gd" id="1_0q7rf"]
-[ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://retro_theme.tres" id="1_k6olr"]
-[ext_resource type="LabelSettings" uid="uid://cubigmnt6nnmi" path="res://retro_font.tres" id="2_hlvnk"]
+[ext_resource type="Script" uid="uid://b2oan4p7ci3b8" path="res://score/score.gd" id="1_0q7rf"]
+[ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://themes/retro_theme.tres" id="1_k6olr"]
+[ext_resource type="LabelSettings" uid="uid://cubigmnt6nnmi" path="res://themes/retro_font.tres" id="2_hlvnk"]
 
 [sub_resource type="Animation" id="Animation_0h6j7"]
 length = 0.001
@@ -61,8 +61,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_53gvs"]
 _data = {
-"RESET": SubResource("Animation_0h6j7"),
-"pop_up": SubResource("Animation_fiknn")
+&"RESET": SubResource("Animation_0h6j7"),
+&"pop_up": SubResource("Animation_fiknn")
 }
 
 [node name="Score" type="Node2D" node_paths=PackedStringArray("label", "animation")]

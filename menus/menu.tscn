@@ -1,11 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://5d7a01oe8cp1"]
+[gd_scene load_steps=4 format=3 uid="uid://1ewwkt1n6pdi"]
 
-[ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://retro_theme.tres" id="1_kr71s"]
-[ext_resource type="Script" path="res://menus/menu.gd" id="1_xpnh1"]
+[ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://themes/retro_theme.tres" id="1_kr71s"]
 [ext_resource type="Texture2D" uid="uid://30a8mvxwrmvo" path="res://menus/assets/space.png" id="2_dumo5"]
 
+[sub_resource type="GDScript" id="GDScript_y8e4h"]
+script/source = "class_name Menu extends Node2D
+
+@onready var game_scene = load(\"res://game.tscn\")
+
+func _on_start_pressed():
+	get_tree().call_deferred(\"change_scene_to_packed\", game_scene)
+"
+
 [node name="Menu" type="Node2D"]
-script = ExtResource("1_xpnh1")
+script = SubResource("GDScript_y8e4h")
 
 [node name="Space" type="Sprite2D" parent="."]
 show_behind_parent = true

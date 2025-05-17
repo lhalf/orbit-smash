@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://cwpd4cqkg8tqe"]
 
-[ext_resource type="FontFile" uid="uid://b8s761ya8undy" path="res://retro_font.ttf" id="1_vwwi5"]
+[ext_resource type="FontFile" uid="uid://b8s761ya8undy" path="res://themes/retro_font.ttf" id="1_vwwi5"]
 
 [resource]
 Button/font_sizes/font_size = 48

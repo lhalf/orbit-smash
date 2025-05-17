@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://caafcqt0osnjl"]
 
-[ext_resource type="Script" path="res://ship/ship.gd" id="1_06dsp"]
+[ext_resource type="Script" uid="uid://bcxg7vs2obaht" path="res://ship/ship.gd" id="1_06dsp"]
 [ext_resource type="AudioStream" uid="uid://d3ipq4nmmdoig" path="res://ship/assets/charge.wav" id="2_7bgck"]
-[ext_resource type="Script" path="res://ship/indicator.gd" id="3_tdd68"]
-[ext_resource type="Script" path="res://ship/DEBUG_LABEL.gd" id="4_mkmx0"]
+[ext_resource type="Script" uid="uid://bfeadtuafac" path="res://ship/indicator.gd" id="3_tdd68"]
+[ext_resource type="Script" uid="uid://ds2xghcxpki6d" path="res://ship/DEBUG_LABEL.gd" id="4_mkmx0"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_g7u46"]
 size = Vector3(30, 30, 1)
@@ -48,8 +48,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7mbo7"]
 _data = {
-"RESET": SubResource("Animation_pp4wn"),
-"grow": SubResource("Animation_daraa")
+&"RESET": SubResource("Animation_pp4wn"),
+&"grow": SubResource("Animation_daraa")
 }
 
 [sub_resource type="Curve" id="Curve_xwo2p"]
@@ -141,7 +141,7 @@ mesh = SubResource("PrismMesh_noi0t")
 
 [node name="Grow" type="AnimationPlayer" parent="Indicator"]
 libraries = {
-"": SubResource("AnimationLibrary_7mbo7")
+&"": SubResource("AnimationLibrary_7mbo7")
 }
 
 [node name="Area" type="Area2D" parent="."]

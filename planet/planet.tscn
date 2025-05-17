@@ -1,10 +1,10 @@
 [gd_scene load_steps=17 format=4 uid="uid://3ulvy8fx1w1x"]
 
-[ext_resource type="Script" path="res://planet/planet.gd" id="1_krs70"]
-[ext_resource type="Shader" path="res://shaders/green_screen.gdshader" id="2_2tfgv"]
-[ext_resource type="Script" path="res://planet/planet_area.gd" id="2_t5hus"]
+[ext_resource type="Script" uid="uid://lt2i3aowennc" path="res://planet/planet.gd" id="1_krs70"]
+[ext_resource type="Shader" uid="uid://c1pbsyuoatrm0" path="res://shaders/green_screen.gdshader" id="2_2tfgv"]
+[ext_resource type="Script" uid="uid://3p6v7o5a0t5f" path="res://planet/planet_area.gd" id="2_t5hus"]
 [ext_resource type="Texture2D" uid="uid://bc4gsbhghh1m6" path="res://planet/planet_CHAHIN_EARTH_TEXTURE.jpg" id="3_ajuk0"]
-[ext_resource type="Script" path="res://planet/earth.gd" id="4_dbi5e"]
+[ext_resource type="Script" uid="uid://cmnlvdbxbwjsf" path="res://planet/earth.gd" id="4_dbi5e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lrk1u"]
 shader = ExtResource("2_2tfgv")
@@ -72,6 +72,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xqdu1")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5oau8"]
+shading_mode = 0
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_johbd"]
