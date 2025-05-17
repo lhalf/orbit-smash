@@ -20,6 +20,8 @@ var target_position: Vector2
 var t: float = 0.0
 
 func _ready():
+	# so there is only one viewport, we load from a global one
+	mesh.texture = MeteorViewport.get_texture()
 	explosion.connect("finished", queue_free)
 
 func _physics_process(delta):

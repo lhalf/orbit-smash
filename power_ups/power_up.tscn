@@ -1,10 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://2nlxbxf4n538"]
+[gd_scene load_steps=8 format=3 uid="uid://2nlxbxf4n538"]
 
 [ext_resource type="Script" path="res://power_ups/power_up.gd" id="1_vcily"]
+[ext_resource type="Shader" path="res://shaders/green_screen.gdshader" id="2_dya7f"]
 [ext_resource type="Script" path="res://power_ups/power_up_area.gd" id="2_qtqyl"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_w5u4t"]
-size = Vector3(30, 30, 12)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1g2wn"]
+shader = ExtResource("2_dya7f")
+shader_parameter/key_color = Color(0, 1, 0, 1)
+shader_parameter/similarity = 0.4
+shader_parameter/smoothness = 0.08
+shader_parameter/spill = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_o4swb"]
+size = Vector2(100, 100)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ymelb"]
+viewport_path = NodePath(".")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o7brp"]
 size = Vector2(30, 30)
@@ -16,7 +27,9 @@ mesh = NodePath("Mesh")
 timer = NodePath("Timeout")
 
 [node name="Mesh" type="MeshInstance2D" parent="."]
-mesh = SubResource("BoxMesh_w5u4t")
+material = SubResource("ShaderMaterial_1g2wn")
+mesh = SubResource("QuadMesh_o4swb")
+texture = SubResource("ViewportTexture_ymelb")
 
 [node name="Area" type="Area2D" parent="Mesh"]
 script = ExtResource("2_qtqyl")

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bdreqxtaahqyc"
-path="res://.godot/imported/moon.glb-ab4a881081253ae86857ca20cd861057.scn"
+uid="uid://d0vf6e1enyt5m"
+path="res://.godot/imported/gas_tank.glb-6c611effd861b6e203e8d6d26339d3a1.scn"
 
 [deps]
 
-source_file="res://enemies/assets/moon.glb"
-dest_files=["res://.godot/imported/moon.glb-ab4a881081253ae86857ca20cd861057.scn"]
+source_file="res://power_ups/nuke/gas_tank.glb"
+dest_files=["res://.godot/imported/gas_tank.glb-6c611effd861b6e203e8d6d26339d3a1.scn"]
 
 [params]
 

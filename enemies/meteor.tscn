@@ -1,16 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://7kd16bufnlha"]
+[gd_scene load_steps=11 format=3 uid="uid://7kd16bufnlha"]
 
 [ext_resource type="Script" path="res://enemies/meteor.gd" id="1_mmw5e"]
+[ext_resource type="Shader" path="res://shaders/green_screen.gdshader" id="2_fw6np"]
 [ext_resource type="Script" path="res://enemies/meteor_area.gd" id="2_hx5jx"]
 [ext_resource type="PackedScene" uid="uid://bijgsy8j8eh7y" path="res://score/score.tscn" id="4_mfywi"]
 [ext_resource type="AudioStream" uid="uid://gsmlq2xt8v7j" path="res://enemies/assets/explosion.wav" id="5_ocvfs"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sodqh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fnavb"]
+shader = ExtResource("2_fw6np")
+shader_parameter/key_color = Color(1, 0, 0, 1)
+shader_parameter/similarity = 0.4
+shader_parameter/smoothness = 0.08
+shader_parameter/spill = 0.1
 
-[sub_resource type="SphereMesh" id="SphereMesh_3l5rw"]
-material = SubResource("StandardMaterial3D_sodqh")
-radius = 15.0
-height = 30.0
+[sub_resource type="QuadMesh" id="QuadMesh_lycme"]
+size = Vector2(70, 70)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0hxbf"]
 radius = 15.0
@@ -32,7 +36,8 @@ explode_sound = NodePath("ExplodeSound")
 score = NodePath("Score")
 
 [node name="Mesh" type="MeshInstance2D" parent="."]
-mesh = SubResource("SphereMesh_3l5rw")
+material = SubResource("ShaderMaterial_fnavb")
+mesh = SubResource("QuadMesh_lycme")
 
 [node name="Area" type="Area2D" parent="Mesh"]
 script = ExtResource("2_hx5jx")

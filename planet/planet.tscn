@@ -17,7 +17,7 @@ shader_parameter/spill = 0.1
 size = Vector2(100, 100)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_pqf2x"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("PlanetViewport")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f11xt"]
 radius = 25.0
@@ -114,24 +114,24 @@ scale_amount_max = 5.0
 scale_amount_curve = SubResource("Curve_4824x")
 color_ramp = SubResource("Gradient_4xrmu")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="PlanetViewport" type="SubViewport" parent="."]
 
-[node name="Earth" type="MeshInstance3D" parent="SubViewport"]
+[node name="Earth" type="MeshInstance3D" parent="PlanetViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 0)
 mesh = SubResource("ArrayMesh_ntgje")
 skeleton = NodePath("")
 script = ExtResource("4_dbi5e")
 speed = 1.0
 
-[node name="Camera" type="Camera3D" parent="SubViewport"]
+[node name="Camera" type="Camera3D" parent="PlanetViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 23.095)
 cull_mask = 1047553
 
-[node name="GreenScreen" type="MeshInstance3D" parent="SubViewport"]
+[node name="GreenScreen" type="MeshInstance3D" parent="PlanetViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, -15.398)
 mesh = SubResource("QuadMesh_johbd")
 
-[node name="Sun" type="DirectionalLight3D" parent="SubViewport"]
+[node name="Sun" type="DirectionalLight3D" parent="PlanetViewport"]
 
 [connection signal="area_entered" from="Mesh/Area" to="." method="_on_planet_area_entered"]
 [connection signal="area_entered" from="Mesh/Area" to="Mesh" method="_on_planet_area_entered"]

@@ -24,6 +24,7 @@ func _ready():
 	timer.connect("timeout", queue_free)
 	timer.start()
 	effect_function = pick_random_effect()
+	mesh.texture = NukeViewport.get_texture()
 
 func pick_random_effect() -> Callable:
 	var effects = [nuke_effect, infinite_charge_effect]

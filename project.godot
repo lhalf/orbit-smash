@@ -20,6 +20,8 @@ config/icon="res://icon.svg"
 Scores="*res://scores.gd"
 Messenger="*res://messenger.gd"
 PowerUps="*res://power_ups.gd"
+MeteorViewport="*res://enemies/meteor_viewport.tscn"
+NukeViewport="*res://power_ups/nuke/nuke_viewport.tscn"
 
 [debug]
 
