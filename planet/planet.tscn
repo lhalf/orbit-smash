@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://3ulvy8fx1w1x"]
+[gd_scene load_steps=16 format=4 uid="uid://3ulvy8fx1w1x"]
 
 [ext_resource type="Script" uid="uid://lt2i3aowennc" path="res://planet/planet.gd" id="1_krs70"]
 [ext_resource type="Shader" uid="uid://c1pbsyuoatrm0" path="res://shaders/green_screen.gdshader" id="2_2tfgv"]
@@ -71,13 +71,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xqdu1")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5oau8"]
-shading_mode = 0
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="QuadMesh" id="QuadMesh_johbd"]
-material = SubResource("StandardMaterial3D_5oau8")
-size = Vector2(70, 70)
+[sub_resource type="Environment" id="Environment_pijgg"]
+background_mode = 1
+background_color = Color(1, 0, 0, 1)
+ambient_light_source = 1
 
 [node name="Planet" type="Node2D" node_paths=PackedStringArray("planet_area", "mesh", "explode")]
 script = ExtResource("1_krs70")
@@ -101,14 +98,14 @@ shape = SubResource("CircleShape2D_f11xt")
 emitting = false
 amount = 500
 one_shot = true
-explosiveness = 0.6
+explosiveness = 0.9
 randomness = 0.5
 lifetime_randomness = 0.5
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 50.0
-initial_velocity_max = 70.0
+initial_velocity_max = 500.0
 angle_max = 360.0
 scale_amount_min = 5.0
 scale_amount_max = 5.0
@@ -127,12 +124,10 @@ speed = 1.0
 [node name="Camera" type="Camera3D" parent="PlanetViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 23.095)
 cull_mask = 1047553
+environment = SubResource("Environment_pijgg")
 
-[node name="GreenScreen" type="MeshInstance3D" parent="PlanetViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, -15.398)
-mesh = SubResource("QuadMesh_johbd")
-
-[node name="Sun" type="DirectionalLight3D" parent="PlanetViewport"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="PlanetViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 23.095)
 
 [connection signal="area_entered" from="Mesh/Area" to="." method="_on_planet_area_entered"]
 [connection signal="area_entered" from="Mesh/Area" to="Mesh" method="_on_planet_area_entered"]

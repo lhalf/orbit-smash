@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://c2tbm1c0ot5fu"]
+[gd_scene load_steps=7 format=4 uid="uid://c2tbm1c0ot5fu"]
 
 [ext_resource type="Texture2D" uid="uid://dsw4v2grrhuv0" path="res://enemies/assets/moon_PUSHILIN_moon.png" id="1_lowac"]
 [ext_resource type="Script" uid="uid://dc0gax525gewa" path="res://enemies/moon.gd" id="2_kxcw4"]
@@ -42,13 +42,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_fblfu")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vi4wl"]
-shading_mode = 0
-albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="QuadMesh" id="QuadMesh_j8gxu"]
-material = SubResource("StandardMaterial3D_vi4wl")
-size = Vector2(10, 10)
+[sub_resource type="Environment" id="Environment_46rg7"]
+background_mode = 1
+background_color = Color(0, 1, 0, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 1.5
 
 [node name="MeteorViewport" type="SubViewport"]
 canvas_cull_mask = 4294966274
@@ -62,8 +61,4 @@ script = ExtResource("2_kxcw4")
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.065, 0, 2.715)
 cull_mask = 1047554
-
-[node name="GreenScreen" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.437)
-layers = 2
-mesh = SubResource("QuadMesh_j8gxu")
+environment = SubResource("Environment_46rg7")

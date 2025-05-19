@@ -82,6 +82,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="DEBUG" type="Label" parent="ChargeTimer"]
+unique_name_in_owner = true
 offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("4_mkmx0")
@@ -121,8 +122,6 @@ scale_amount_curve = SubResource("Curve_dxakg")
 
 [node name="Visible" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
 [node name="Indicator" type="Node2D" parent="." node_paths=PackedStringArray("mesh", "rotate_point", "target", "animation")]
 script = ExtResource("3_tdd68")
 mesh = NodePath("Rotate/Mesh")
@@ -153,12 +152,15 @@ polygon = PackedVector2Array(-15, -15, 15, -15, 0, 15)
 rotation = 3.14159
 emitting = false
 amount = 50
+lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
 direction = Vector2(0, 0)
 gravity = Vector2(0, 0)
 initial_velocity_min = 80.0
-initial_velocity_max = 200.0
+initial_velocity_max = 700.0
+orbit_velocity_min = 0.1
+orbit_velocity_max = 0.3
 angle_max = 180.0
 scale_amount_min = 5.0
 scale_amount_max = 10.0

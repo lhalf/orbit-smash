@@ -98,7 +98,10 @@ func start_power_up_reset_timer(_ignore) -> void:
 func _on_charge_timer_timeout():
 	explode_particles.emitting = true
 	trail_particles.hide()
+	charge_particles.hide()
 	mesh.hide()
+	%DEBUG.hide()
+	set_physics_process_internal(false)
 
 func _on_explode_finished():
 	get_tree().call_deferred("change_scene_to_packed", game_over_scene)

@@ -7,7 +7,7 @@ class_name Planet extends Node2D
 @onready var game_over_scene = preload("res://menus/game_over.tscn")
 
 func _on_planet_area_entered(area):
-	if area is MeteorArea:
+	if area is MeteorArea and mesh.visible:
 		area.owner.call_deferred("queue_free")
 		mesh.hide()
 		explode.emitting = true

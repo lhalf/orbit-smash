@@ -27,11 +27,10 @@ func _ready():
 		angle_offsets.append(i * angle_step)
 
 func _process(_delta):
-	var center = get_viewport_rect().size / 2
 	var time = Time.get_ticks_msec() / 1000.0
 
 	for i in labels.size():
 		var angle = angle_offsets[i] + time * angular_speed
-		var pos = center + Vector2(cos(angle), sin(angle)) * radius
+		var pos = Vector2.ZERO + Vector2(cos(angle), sin(angle)) * radius
 		labels[i].position = pos
 		labels[i].rotation = angle + PI / 2

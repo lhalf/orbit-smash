@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://1cg450i0jrns"]
+[gd_scene load_steps=22 format=3 uid="uid://1cg450i0jrns"]
 
 [ext_resource type="Script" uid="uid://bwph7yj3amotd" path="res://game.gd" id="1_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://3ulvy8fx1w1x" path="res://planet/planet.tscn" id="1_tf1ba"]
@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://b8b3oexddy74q" path="res://spawn_controller/spawn_controller.gd" id="5_rrgt6"]
 [ext_resource type="Script" uid="uid://cfuaceal3lub0" path="res://menus/orbiting_text.gd" id="6_hve3p"]
 [ext_resource type="Script" uid="uid://cnbdw6psen1ir" path="res://spawn_controller/spawn_area.gd" id="6_i18uh"]
-[ext_resource type="Texture2D" uid="uid://30a8mvxwrmvo" path="res://menus/assets/space.png" id="7_l3wog"]
+[ext_resource type="Shader" uid="uid://cxyq3wsf0nhmf" path="res://shaders/stars.gdshader" id="6_mfdv2"]
 [ext_resource type="FontFile" uid="uid://b8s761ya8undy" path="res://themes/retro_font.ttf" id="7_mfdv2"]
 [ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://themes/retro_theme.tres" id="8_vef74"]
 
@@ -17,6 +17,17 @@ size = Vector2(20, 1150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpva3"]
 size = Vector2(20, 550)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iotsf"]
+shader = ExtResource("6_mfdv2")
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/bigStarSlow = 2.0
+shader_parameter/mediumStarSlow = 6.0
+shader_parameter/smallStarSlow = 8.0
+shader_parameter/smallStarAmount = 0.002
+shader_parameter/mediumStarAmount = 0.01
+shader_parameter/bigStarAmount = 0.02
 
 [sub_resource type="Animation" id="Animation_hve3p"]
 length = 0.001
@@ -121,7 +132,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(8, 8)]
+"values": [Vector2(6.5, 6.5)]
 }
 
 [sub_resource type="Animation" id="Animation_iotsf"]
@@ -137,7 +148,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(8, 8), Vector2(1, 1)]
+"values": [Vector2(6.5, 6.5), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lc2xo"]
@@ -150,7 +161,7 @@ _data = {
 script = ExtResource("1_j5wjh")
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(8, 8)
+zoom = Vector2(6.5, 6.5)
 
 [node name="Planet" parent="." instance=ExtResource("1_tf1ba")]
 process_mode = 3
@@ -201,18 +212,30 @@ shape = SubResource("RectangleShape2D_xpva3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
+layer = -1
+
+[node name="Background" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_iotsf")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.247059)
 
 [node name="Title" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
 layout_mode = 3
-anchors_preset = 0
-offset_left = -110.0
-offset_top = -185.0
-offset_right = -110.0
-offset_bottom = -185.0
-scale = Vector2(1.335, 1.335)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("6_hve3p")
-radius = 230.0
+text = "ORBIT SMASH                        "
+radius = 300.0
 font = ExtResource("7_mfdv2")
 font_size = 50
 
@@ -224,9 +247,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -71.5
+offset_left = -72.5
 offset_top = -40.0
-offset_right = 71.5
+offset_right = 72.5
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(72.5, 20)
@@ -239,12 +262,17 @@ script = ExtResource("4_wcleq")
 
 [node name="PlayButton" type="Button" parent="CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 155.0
-offset_top = 938.0
-offset_right = 501.0
-offset_bottom = 1076.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -173.0
+offset_top = -138.0
+offset_right = 173.0
+grow_horizontal = 2
+grow_vertical = 0
 pivot_offset = Vector2(173, 69)
-size_flags_vertical = 3
 theme = ExtResource("8_vef74")
 theme_override_font_sizes/font_size = 100
 action_mode = 0
@@ -257,11 +285,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_mfdv2")
 }
 autoplay = "play_button_wobble"
-
-[node name="Space" type="Sprite2D" parent="."]
-show_behind_parent = true
-texture = ExtResource("7_l3wog")
-metadata/_edit_lock_ = true
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
