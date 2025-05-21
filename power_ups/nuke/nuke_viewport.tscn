@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=4 uid="uid://7j0rhogyxb5h"]
 
-[ext_resource type="Script" uid="uid://ddednqlnlmhb5" path="res://power_ups/nuke/rotate.gd" id="1_s778t"]
+[ext_resource type="Script" uid="uid://ddednqlnlmhb5" path="res://power_ups/rotate.gd" id="1_s778t"]
 [ext_resource type="Script" uid="uid://dc0gax525gewa" path="res://enemies/moon.gd" id="2_dxqep"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kv3t5"]

@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://b8b3oexddy74q" path="res://spawn_controller/spawn_controller.gd" id="5_rrgt6"]
 [ext_resource type="Script" uid="uid://cfuaceal3lub0" path="res://menus/orbiting_text.gd" id="6_hve3p"]
 [ext_resource type="Script" uid="uid://cnbdw6psen1ir" path="res://spawn_controller/spawn_area.gd" id="6_i18uh"]
-[ext_resource type="Shader" uid="uid://cxyq3wsf0nhmf" path="res://shaders/stars.gdshader" id="6_mfdv2"]
+[ext_resource type="Shader" uid="uid://dm1wcjbh836io" path="res://shaders/stars.gdshader" id="6_mfdv2"]
 [ext_resource type="FontFile" uid="uid://b8s761ya8undy" path="res://themes/retro_font.ttf" id="7_mfdv2"]
 [ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://themes/retro_theme.tres" id="8_vef74"]
 
@@ -215,6 +215,7 @@ process_mode = 3
 layer = -1
 
 [node name="Background" type="ColorRect" parent="CanvasLayer"]
+process_mode = 3
 material = SubResource("ShaderMaterial_iotsf")
 anchors_preset = 15
 anchor_right = 1.0

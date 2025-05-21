@@ -14,28 +14,38 @@ class_name PowerUp extends Node2D
 @export var timer: Timer
 @export var timeout: int = 10
 
-var effect_function: Callable
-
 var target_position: Vector2
 var t: float = 0.0
+
+class _PowerUp:
+	var function: Callable
+	var texture: Texture
+	
+	func _init(_function: Callable, _texture: Texture):
+		function = _function
+		texture = _texture
+
+var power_up: _PowerUp
+
+var power_ups = [
+	_PowerUp.new(nuke_effect, NukeViewport.get_texture()), 
+	_PowerUp.new(infinite_charge_effect, InfiniteChargeViewport.get_texture())
+]
 
 func _ready():
 	timer.wait_time = timeout
 	timer.connect("timeout", queue_free)
 	timer.start()
-	effect_function = pick_random_effect()
-	mesh.texture = NukeViewport.get_texture()
-
-func pick_random_effect() -> Callable:
-	var effects = [nuke_effect, infinite_charge_effect]
-	return effects[randi() % effects.size()]
+	power_up = power_ups[randi() % power_ups.size()]
+	mesh.texture = power_up.texture
+	mesh.rotation_degrees = randi_range(0, 360)
 
 func _physics_process(delta):
 	t += delta * speed
 	position = position.lerp(target_position, t)
 
 func on_hit():
-	effect_function.call()
+	power_up.function.call()
 	area.monitoring = false
 	set_physics_process(false)
 	mesh.hide()

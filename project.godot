@@ -22,6 +22,7 @@ Messenger="*res://global/messenger.gd"
 PowerUps="*res://global/power_ups.gd"
 NukeViewport="*res://power_ups/nuke/nuke_viewport.tscn"
 MeteorViewport="*res://enemies/meteor_viewport.tscn"
+InfiniteChargeViewport="*res://power_ups/infinite_charge/infinite_charge_viewport.tscn"
 
 [debug]
 

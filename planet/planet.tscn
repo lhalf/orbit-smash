@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://3ulvy8fx1w1x"]
+[gd_scene load_steps=21 format=4 uid="uid://3ulvy8fx1w1x"]
 
 [ext_resource type="Script" uid="uid://lt2i3aowennc" path="res://planet/planet.gd" id="1_krs70"]
 [ext_resource type="Shader" uid="uid://c1pbsyuoatrm0" path="res://shaders/green_screen.gdshader" id="2_2tfgv"]
@@ -76,6 +76,51 @@ background_mode = 1
 background_color = Color(1, 0, 0, 1)
 ambient_light_source = 1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pijgg"]
+transparency = 1
+albedo_color = Color(0, 0.682353, 0.682353, 0.603922)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vfwbv"]
+material = SubResource("StandardMaterial3D_pijgg")
+radius = 13.0
+height = 26.0
+
+[sub_resource type="Animation" id="Animation_pijgg"]
+resource_name = "shield_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shield:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.533333, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.5, 1.5, 1.5), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xly5a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shield:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xly5a"]
+_data = {
+&"RESET": SubResource("Animation_xly5a"),
+&"shield_up": SubResource("Animation_pijgg")
+}
+
 [node name="Planet" type="Node2D" node_paths=PackedStringArray("planet_area", "mesh", "explode")]
 script = ExtResource("1_krs70")
 planet_area = NodePath("Mesh/Area")
@@ -128,6 +173,16 @@ environment = SubResource("Environment_pijgg")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="PlanetViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 23.095)
+
+[node name="Shield" type="MeshInstance3D" parent="PlanetViewport"]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_vfwbv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlanetViewport"]
+libraries = {
+&"": SubResource("AnimationLibrary_xly5a")
+}
 
 [connection signal="area_entered" from="Mesh/Area" to="." method="_on_planet_area_entered"]
 [connection signal="area_entered" from="Mesh/Area" to="Mesh" method="_on_planet_area_entered"]

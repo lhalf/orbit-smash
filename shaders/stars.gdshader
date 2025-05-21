@@ -55,5 +55,6 @@ void fragment() {
 		float r = rand(normCoordSmall);
 		color = r * (0.85 * sin(TIME * (r * 5.0) + 720.0 * r) + 0.95);
 	}
+	
 	COLOR = vec4(vec3(color),color) + bg_color;
 }
