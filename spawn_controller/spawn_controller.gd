@@ -17,7 +17,8 @@ func _ready():
 	spawn_new()
 
 func new_spawns() -> void:
-	spawn_new()
+	if meteor_count() < 10:
+		spawn_new()
 	if Scores.current % 3 == 0:
 		spawn_new()
 	if Scores.current % 5 == 0:
@@ -37,13 +38,9 @@ func spawn_power_up() -> void:
 	call_deferred("add_child", power_up_object)
 
 func explode_all_meteors() -> void:
-	for active_meteor in active_meteors():
-		active_meteor.explode(1)
-	new_spawns()
-
-func active_meteors() -> Array[Meteor]:
-	var meteors: Array[Meteor] = []
 	for node in get_children():
 		if node is Meteor:
-			meteors.push_back(node)
-	return meteors
+			node.explode(1)
+
+func meteor_count() -> int:
+	return get_children().filter(func(node): return node is Meteor).size()

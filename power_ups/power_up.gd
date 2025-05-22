@@ -29,7 +29,8 @@ var power_up: _PowerUp
 
 var power_ups = [
 	_PowerUp.new(nuke_effect, NukeViewport.get_texture()), 
-	_PowerUp.new(infinite_charge_effect, InfiniteChargeViewport.get_texture())
+	_PowerUp.new(infinite_charge_effect, InfiniteChargeViewport.get_texture()),
+	_PowerUp.new(shield_effect, ShieldViewport.get_texture())
 ]
 
 func _ready():
@@ -45,16 +46,20 @@ func _physics_process(delta):
 	position = position.lerp(target_position, t)
 
 func on_hit():
+	$Explode.emitting = true
+	%PickUpSound.play()
 	power_up.function.call()
 	area.monitoring = false
 	set_physics_process(false)
 	mesh.hide()
 
 func nuke_effect() -> void:
-	print("nuke effect")
 	add_child(explosion.instantiate())
 	PowerUps.nuke.emit()
 
 func infinite_charge_effect() -> void:
-	print("infinite charge effect")
 	PowerUps.infinite_charge.emit(1000)
+
+func shield_effect() -> void:
+	if not PowerUps.shield_active:
+		PowerUps.activate_shield.emit()

@@ -13,6 +13,8 @@ config_version=5
 config/name="orbit_smash"
 run/main_scene="uid://1cg450i0jrns"
 config/features=PackedStringArray("4.4", "Mobile")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://d2ofa7ue0bfob"
 config/icon="res://icon.svg"
 
 [autoload]
@@ -23,6 +25,8 @@ PowerUps="*res://global/power_ups.gd"
 NukeViewport="*res://power_ups/nuke/nuke_viewport.tscn"
 MeteorViewport="*res://enemies/meteor_viewport.tscn"
 InfiniteChargeViewport="*res://power_ups/infinite_charge/infinite_charge_viewport.tscn"
+Music="*res://global/music.tscn"
+ShieldViewport="*res://power_ups/shield/shield_viewport.tscn"
 
 [debug]
 

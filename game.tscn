@@ -34,31 +34,31 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%PlayButton:rotation")
+tracks/0/path = NodePath("%Score:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("%PlayButton:scale")
+tracks/1/path = NodePath("%PlayButtonContainer:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("%Score:scale")
+tracks/2/path = NodePath("%PlayButtonContainer:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -75,7 +75,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%PlayButton:rotation")
+tracks/0/path = NodePath("%PlayButtonContainer:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -87,7 +87,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("%PlayButton:scale")
+tracks/1/path = NodePath("%PlayButtonContainer:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -132,7 +132,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(6.5, 6.5)]
+"values": [Vector2(5, 5)]
 }
 
 [sub_resource type="Animation" id="Animation_iotsf"]
@@ -148,7 +148,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(6.5, 6.5), Vector2(1, 1)]
+"values": [Vector2(5, 5), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lc2xo"]
@@ -161,9 +161,10 @@ _data = {
 script = ExtResource("1_j5wjh")
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(6.5, 6.5)
+zoom = Vector2(5, 5)
 
 [node name="Planet" parent="." instance=ExtResource("1_tf1ba")]
+unique_name_in_owner = true
 process_mode = 3
 
 [node name="Ship" parent="." node_paths=PackedStringArray("planet") instance=ExtResource("1_yhm3d")]
@@ -243,16 +244,13 @@ font_size = 50
 [node name="Score" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 offset_left = -72.5
-offset_top = -40.0
 offset_right = 72.5
+offset_bottom = 40.0
 grow_horizontal = 2
-grow_vertical = 0
 pivot_offset = Vector2(72.5, 20)
 size_flags_horizontal = 4
 text = "Score: "
@@ -261,7 +259,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("4_wcleq")
 
-[node name="PlayButton" type="Button" parent="CanvasLayer"]
+[node name="PlayButtonContainer" type="MarginContainer" parent="CanvasLayer"]
 unique_name_in_owner = true
 anchors_preset = 7
 anchor_left = 0.5
@@ -273,7 +271,14 @@ offset_top = -138.0
 offset_right = 173.0
 grow_horizontal = 2
 grow_vertical = 0
-pivot_offset = Vector2(173, 69)
+pivot_offset = Vector2(183, 79)
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/PlayButtonContainer"]
+layout_mode = 2
 theme = ExtResource("8_vef74")
 theme_override_font_sizes/font_size = 100
 action_mode = 0
@@ -294,4 +299,4 @@ libraries = {
 &"": SubResource("AnimationLibrary_lc2xo")
 }
 
-[connection signal="pressed" from="CanvasLayer/PlayButton" to="." method="start"]
+[connection signal="pressed" from="CanvasLayer/PlayButtonContainer/PlayButton" to="." method="start"]

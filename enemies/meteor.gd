@@ -10,7 +10,6 @@ class_name Meteor extends Node2D
 
 @export_category("Animations")
 @export var explosion: CPUParticles2D
-@export var score_animation: AnimationPlayer
 @export var explode_sound: AudioStreamPlayer
 
 @export_category("Score")

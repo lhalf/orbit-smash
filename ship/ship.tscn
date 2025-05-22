@@ -61,6 +61,7 @@ offsets = PackedFloat32Array(0, 0.46875, 1)
 colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 
 [node name="Ship" type="Node2D" node_paths=PackedStringArray("mesh", "charge_sound", "charge_timer", "trail_particles", "charge_particles", "explode_particles", "power_up_timer")]
+scale = Vector2(1.15, 1.15)
 script = ExtResource("1_06dsp")
 mesh = NodePath("Mesh")
 charge_sound = NodePath("ChargeSound")
@@ -75,7 +76,8 @@ mesh = SubResource("PrismMesh_g7u46")
 
 [node name="ChargeSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_7bgck")
-pitch_scale = 0.8
+volume_db = -10.0
+pitch_scale = 0.6
 
 [node name="ChargeTimer" type="Timer" parent="."]
 wait_time = 2.0

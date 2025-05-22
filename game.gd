@@ -12,5 +12,6 @@ func start() -> void:
 	%Score.show()
 	%Ship.show()
 	%Title.hide()
-	%PlayButton.hide()
+	%PlayButtonContainer.hide()
 	%Animations.play("zoom_out")
+	%Planet.put_up_shield()

@@ -22,4 +22,3 @@ func _input(_event):
 	if Input.is_key_pressed(KEY_O):
 		print("DEBUG: spawning meteor")
 		debug_spawn_meteor.emit()
-	

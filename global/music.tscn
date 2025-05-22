@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://btlu7unxksb6l"]
+
+[ext_resource type="AudioStream" uid="uid://behysgcy6laeu" path="res://global/assets/track1.mp3" id="1_5dyrq"]
+[ext_resource type="AudioStream" uid="uid://ck13a4qtxijqt" path="res://global/assets/track2.mp3" id="2_dkoja"]
+[ext_resource type="AudioStream" uid="uid://epyihynaq1ec" path="res://global/assets/track3.mp3" id="3_35o4q"]
+[ext_resource type="AudioStream" uid="uid://bn5tmoasnjoll" path="res://global/assets/track4.mp3" id="4_j3vgt"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_5dyrq"]
+shuffle = true
+stream_count = 4
+stream_0 = ExtResource("1_5dyrq")
+stream_1 = ExtResource("2_dkoja")
+stream_2 = ExtResource("3_35o4q")
+stream_3 = ExtResource("4_j3vgt")
+
+[node name="Music" type="AudioStreamPlayer2D"]
+stream = SubResource("AudioStreamPlaylist_5dyrq")
+volume_db = -10.0
+autoplay = true
+max_distance = 1e+08

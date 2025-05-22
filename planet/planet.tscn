@@ -1,10 +1,19 @@
-[gd_scene load_steps=21 format=4 uid="uid://3ulvy8fx1w1x"]
+[gd_scene load_steps=23 format=4 uid="uid://3ulvy8fx1w1x"]
 
 [ext_resource type="Script" uid="uid://lt2i3aowennc" path="res://planet/planet.gd" id="1_krs70"]
 [ext_resource type="Shader" uid="uid://c1pbsyuoatrm0" path="res://shaders/green_screen.gdshader" id="2_2tfgv"]
 [ext_resource type="Script" uid="uid://3p6v7o5a0t5f" path="res://planet/planet_area.gd" id="2_t5hus"]
 [ext_resource type="Texture2D" uid="uid://bc4gsbhghh1m6" path="res://planet/planet_CHAHIN_EARTH_TEXTURE.jpg" id="3_ajuk0"]
+[ext_resource type="AudioStream" uid="uid://cfvbciijcaxc" path="res://planet/shield.wav" id="3_obm7d"]
 [ext_resource type="Script" uid="uid://cmnlvdbxbwjsf" path="res://planet/earth.gd" id="4_dbi5e"]
+[ext_resource type="Shader" uid="uid://ofrf01a7jqpk" path="res://planet/2d_shield.gdshader" id="4_xly5a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xly5a"]
+shader = ExtResource("4_xly5a")
+shader_parameter/color = Color(0.0157085, 0.248415, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xly5a"]
+radius = 31.95
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lrk1u"]
 shader = ExtResource("2_2tfgv")
@@ -76,56 +85,126 @@ background_mode = 1
 background_color = Color(1, 0, 0, 1)
 ambient_light_source = 1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pijgg"]
-transparency = 1
-albedo_color = Color(0, 0.682353, 0.682353, 0.603922)
-
-[sub_resource type="SphereMesh" id="SphereMesh_vfwbv"]
-material = SubResource("StandardMaterial3D_pijgg")
-radius = 13.0
-height = 26.0
-
-[sub_resource type="Animation" id="Animation_pijgg"]
-resource_name = "shield_up"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Shield:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.533333, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1.5, 1.5, 1.5), Vector3(1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_xly5a"]
+[sub_resource type="Animation" id="Animation_obm7d"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Shield:scale")
+tracks/0/path = NodePath("Shield:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shield:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector2(0.1, 0.1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("Shield/Audio:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xly5a"]
+[sub_resource type="Animation" id="Animation_xly5a"]
+resource_name = "spawn_shield"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shield:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shield:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(1.5, 1.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shield/Audio:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_obm7d"]
 _data = {
-&"RESET": SubResource("Animation_xly5a"),
-&"shield_up": SubResource("Animation_pijgg")
+&"RESET": SubResource("Animation_obm7d"),
+&"spawn_shield": SubResource("Animation_xly5a")
 }
 
 [node name="Planet" type="Node2D" node_paths=PackedStringArray("planet_area", "mesh", "explode")]
+scale = Vector2(1.2, 1.2)
 script = ExtResource("1_krs70")
 planet_area = NodePath("Mesh/Area")
 mesh = NodePath("Mesh")
 explode = NodePath("Explode")
+
+[node name="Shield" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_xly5a")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+pivot_offset = Vector2(45, 45)
+
+[node name="ShieldArea" type="Area2D" parent="Shield"]
+unique_name_in_owner = true
+position = Vector2(45, 45)
+
+[node name="CS" type="CollisionShape2D" parent="Shield/ShieldArea"]
+shape = SubResource("CircleShape2D_xly5a")
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="Shield"]
+position = Vector2(45, 45)
+stream = ExtResource("3_obm7d")
 
 [node name="Mesh" type="MeshInstance2D" parent="."]
 material = SubResource("ShaderMaterial_lrk1u")
@@ -174,16 +253,13 @@ environment = SubResource("Environment_pijgg")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="PlanetViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 23.095)
 
-[node name="Shield" type="MeshInstance3D" parent="PlanetViewport"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0)
-visible = false
-mesh = SubResource("SphereMesh_vfwbv")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PlanetViewport"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
-&"": SubResource("AnimationLibrary_xly5a")
+&"": SubResource("AnimationLibrary_obm7d")
 }
 
+[connection signal="area_entered" from="Shield/ShieldArea" to="." method="_on_shield_area_entered"]
 [connection signal="area_entered" from="Mesh/Area" to="." method="_on_planet_area_entered"]
 [connection signal="area_entered" from="Mesh/Area" to="Mesh" method="_on_planet_area_entered"]
 [connection signal="finished" from="Explode" to="." method="_on_explode_finished"]

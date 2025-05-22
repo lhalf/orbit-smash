@@ -28,6 +28,7 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.400302, 0.00930095), 0.0, 0.0,
 point_count = 5
 
 [node name="Meteor" type="Node2D" node_paths=PackedStringArray("area", "mesh", "explosion", "explode_sound", "score")]
+scale = Vector2(1.1, 1.1)
 script = ExtResource("1_mmw5e")
 area = NodePath("Mesh/Area")
 mesh = NodePath("Mesh")
@@ -63,6 +64,8 @@ scale_amount_curve = SubResource("Curve_a0wep")
 
 [node name="ExplodeSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_ocvfs")
+volume_db = -10.0
+pitch_scale = 0.9
 
 [node name="Trail" type="CPUParticles2D" parent="."]
 show_behind_parent = true
