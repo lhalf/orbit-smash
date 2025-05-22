@@ -14,4 +14,5 @@ func start() -> void:
 	%Title.hide()
 	%PlayButtonContainer.hide()
 	%Animations.play("zoom_out")
+	PowerUps.shield_active = false
 	%Planet.put_up_shield()
