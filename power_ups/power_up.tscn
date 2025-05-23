@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://2nlxbxf4n538"]
+[gd_scene load_steps=9 format=3 uid="uid://2nlxbxf4n538"]
 
 [ext_resource type="Script" uid="uid://1p3ntl4f2shw" path="res://power_ups/power_up.gd" id="1_vcily"]
 [ext_resource type="Shader" uid="uid://c1pbsyuoatrm0" path="res://shaders/green_screen.gdshader" id="2_dya7f"]
@@ -15,11 +15,8 @@ shader_parameter/spill = 0.1
 [sub_resource type="QuadMesh" id="QuadMesh_o4swb"]
 size = Vector2(100, 100)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ymelb"]
-viewport_path = NodePath(".")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7brp"]
-size = Vector2(30, 30)
+[sub_resource type="CircleShape2D" id="CircleShape2D_kn7g2"]
+radius = 20.0
 
 [sub_resource type="Curve" id="Curve_kn7g2"]
 _data = [Vector2(0.040146, 0.983881), 0.0, 0.0, 0, 0, Vector2(0.532847, 1), 0.0, 0.0, 0, 0, Vector2(0.981752, 0.194048), 0.0, 0.0, 0, 0]
@@ -27,20 +24,20 @@ point_count = 3
 
 [node name="PowerUp" type="Node2D" node_paths=PackedStringArray("area", "mesh", "timer")]
 script = ExtResource("1_vcily")
-area = NodePath("Mesh/Area")
-mesh = NodePath("Mesh")
+area = NodePath("PowerUpMesh/Area")
+mesh = NodePath("PowerUpMesh")
 timer = NodePath("Timeout")
 
-[node name="Mesh" type="MeshInstance2D" parent="."]
+[node name="PowerUpMesh" type="MeshInstance2D" parent="."]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_1g2wn")
 mesh = SubResource("QuadMesh_o4swb")
-texture = SubResource("ViewportTexture_ymelb")
 
-[node name="Area" type="Area2D" parent="Mesh"]
+[node name="Area" type="Area2D" parent="PowerUpMesh"]
 script = ExtResource("2_qtqyl")
 
-[node name="CS" type="CollisionShape2D" parent="Mesh/Area"]
-shape = SubResource("RectangleShape2D_o7brp")
+[node name="CS" type="CollisionShape2D" parent="PowerUpMesh/Area"]
+shape = SubResource("CircleShape2D_kn7g2")
 
 [node name="Timeout" type="Timer" parent="."]
 one_shot = true

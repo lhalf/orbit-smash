@@ -7,8 +7,6 @@ class_name Planet extends Node2D
 @onready var shield_area: Area2D = %ShieldArea
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
-@onready var game_over_scene = preload("res://menus/game_over.tscn")
-
 func _ready() -> void:
 	PowerUps.activate_shield.connect(put_up_shield)
 
@@ -19,7 +17,7 @@ func _on_planet_area_entered(area):
 		explode.emitting = true
 
 func _on_explode_finished():
-	get_tree().call_deferred("change_scene_to_packed", game_over_scene)
+	Messenger.game_over.emit()
 
 func put_up_shield() -> void:
 	if PowerUps.shield_active:

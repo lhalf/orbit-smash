@@ -27,6 +27,8 @@ MeteorViewport="*res://enemies/meteor_viewport.tscn"
 InfiniteChargeViewport="*res://power_ups/infinite_charge/infinite_charge_viewport.tscn"
 Music="*res://global/music.tscn"
 ShieldViewport="*res://power_ups/shield/shield_viewport.tscn"
+SpikeBallViewport="*res://power_ups/spike_ball/spike_ball_viewport.tscn"
+LaserViewport="*res://power_ups/laser/laser_viewport.tscn"
 
 [debug]
 

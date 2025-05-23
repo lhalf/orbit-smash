@@ -2,7 +2,9 @@ extends Node
 
 var playing = false
 
+signal game_over
 signal meteor_exploded
+
 signal debug_spawn_meteor
 signal debug_spawn_power_up
 

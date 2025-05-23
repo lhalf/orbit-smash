@@ -1,10 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://cm83j2p57kn85"]
+[gd_scene load_steps=9 format=3 uid="uid://cm83j2p57kn85"]
 
 [ext_resource type="FontFile" uid="uid://b8s761ya8undy" path="res://themes/retro_font.ttf" id="1_ltdns"]
 [ext_resource type="Script" uid="uid://b1xe4h4oxpx7o" path="res://menus/game_over.gd" id="1_rgm6v"]
+[ext_resource type="Shader" uid="uid://dm1wcjbh836io" path="res://shaders/stars.gdshader" id="2_kwtkc"]
 [ext_resource type="LabelSettings" uid="uid://cubigmnt6nnmi" path="res://themes/retro_font.tres" id="2_uck3y"]
 [ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://themes/retro_theme.tres" id="3_4o3eo"]
 [ext_resource type="Script" uid="uid://cmp1g3naeodo7" path="res://score/label.gd" id="3_f02aq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgyup"]
+shader = ExtResource("2_kwtkc")
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/bigStarSlow = 2.0
+shader_parameter/mediumStarSlow = 6.0
+shader_parameter/smallStarSlow = 8.0
+shader_parameter/smallStarAmount = 0.002
+shader_parameter/mediumStarAmount = 0.01
+shader_parameter/bigStarAmount = 0.02
 
 [sub_resource type="LabelSettings" id="LabelSettings_ajqix"]
 font = ExtResource("1_ltdns")
@@ -19,6 +31,16 @@ hiscore_label = NodePath("CanvasLayer/VBoxContainer/Hiscore")
 [node name="Camera" type="Camera2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Background" type="ColorRect" parent="CanvasLayer"]
+process_mode = 3
+material = SubResource("ShaderMaterial_mgyup")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.247059)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 8

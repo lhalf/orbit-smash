@@ -93,5 +93,5 @@ label_settings = ExtResource("2_hlvnk")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_53gvs")
+&"": SubResource("AnimationLibrary_53gvs")
 }

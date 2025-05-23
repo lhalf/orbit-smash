@@ -10,7 +10,7 @@ class_name Meteor extends Node2D
 
 @export_category("Animations")
 @export var explosion: CPUParticles2D
-@export var explode_sound: AudioStreamPlayer
+@export var explode_sound: AudioStreamPlayer2D
 
 @export_category("Score")
 @export var score: Score
@@ -22,6 +22,9 @@ func _ready():
 	# so there is only one viewport, we load from a global one
 	mesh.texture = MeteorViewport.get_texture()
 	mesh.rotation_degrees = randi_range(0, 360)
+	var scale_value = randf_range(1, 1.5)
+	scale = Vector2(scale_value, scale_value)
+	explode_sound.pitch_scale = explode_sound.pitch_scale - (scale_value / 8)
 	explosion.connect("finished", queue_free)
 
 func _physics_process(delta):
@@ -29,7 +32,7 @@ func _physics_process(delta):
 	position = position.lerp(target_position, t)
 
 func explode(with_score: int):
-	score.pop_up(with_score)
+	score.pop_up_score(with_score)
 	area.monitoring = false
 	set_physics_process(false)
 	mesh.hide()

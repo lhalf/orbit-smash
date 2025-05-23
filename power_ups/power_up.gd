@@ -20,24 +20,28 @@ var t: float = 0.0
 class _PowerUp:
 	var function: Callable
 	var texture: Texture
+	var lifetime: int
 	
-	func _init(_function: Callable, _texture: Texture):
+	func _init(_function: Callable, _texture: Texture, _lifetime: int):
 		function = _function
 		texture = _texture
+		lifetime = _lifetime
 
 var power_up: _PowerUp
 
 var power_ups = [
-	_PowerUp.new(nuke_effect, NukeViewport.get_texture()), 
-	_PowerUp.new(infinite_charge_effect, InfiniteChargeViewport.get_texture()),
-	_PowerUp.new(shield_effect, ShieldViewport.get_texture())
+	_PowerUp.new(nuke_effect, NukeViewport.get_texture(), 6), 
+	_PowerUp.new(infinite_charge_effect, InfiniteChargeViewport.get_texture(), 10),
+	_PowerUp.new(shield_effect, ShieldViewport.get_texture(), 8),
+	_PowerUp.new(spike_ball_effect, SpikeBallViewport.get_texture(), 9),
+	_PowerUp.new(laser_effect, LaserViewport.get_texture(), 10)
 ]
 
 func _ready():
-	timer.wait_time = timeout
-	timer.connect("timeout", queue_free)
-	timer.start()
 	power_up = power_ups[randi() % power_ups.size()]
+	timer.wait_time = power_up.lifetime
+	timer.connect("timeout", on_timeout)
+	timer.start()
 	mesh.texture = power_up.texture
 	mesh.rotation_degrees = randi_range(0, 360)
 
@@ -45,21 +49,38 @@ func _physics_process(delta):
 	t += delta * speed
 	position = position.lerp(target_position, t)
 
+func on_timeout() -> void:
+	var tween = create_tween()
+	tween.tween_property(self, "scale", Vector2(0,0), 1.0)
+	tween.connect("finished", queue_free)
+
 func on_hit():
-	$Explode.emitting = true
-	%PickUpSound.play()
 	power_up.function.call()
 	area.monitoring = false
-	set_physics_process(false)
+
+func positive_effects() -> void:
+	$Explode.emitting = true
+	%PickUpSound.play()
 	mesh.hide()
+	set_physics_process(false)
 
 func nuke_effect() -> void:
+	positive_effects()
 	add_child(explosion.instantiate())
 	PowerUps.nuke.emit()
 
 func infinite_charge_effect() -> void:
-	PowerUps.infinite_charge.emit(1000)
+	positive_effects()
+	PowerUps.infinite_charge.emit(2000, -1.5)
 
 func shield_effect() -> void:
+	positive_effects()
 	if not PowerUps.shield_active:
 		PowerUps.activate_shield.emit()
+
+func spike_ball_effect() -> void:
+	PowerUps.spike_ball.emit()
+
+func laser_effect() -> void:
+	positive_effects()
+	PowerUps.activate_laser.emit()
