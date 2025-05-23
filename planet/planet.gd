@@ -26,6 +26,7 @@ func put_up_shield() -> void:
 	if PowerUps.shield_active:
 		return
 	
+	%ShieldAudio.play()
 	PowerUps.shield_active = true
 	shield_area.set_deferred("monitoring", true)
 	animation_player.play("spawn_shield")

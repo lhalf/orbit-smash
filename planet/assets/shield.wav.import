@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cfvbciijcaxc"
-path="res://.godot/imported/shield.wav-2cd8dcea4fd1133f4148773248bb948b.sample"
+path="res://.godot/imported/shield.wav-24b7145ec64191325d840b6c0a944991.sample"
 
 [deps]
 
-source_file="res://planet/shield.wav"
-dest_files=["res://.godot/imported/shield.wav-2cd8dcea4fd1133f4148773248bb948b.sample"]
+source_file="res://planet/assets/shield.wav"
+dest_files=["res://.godot/imported/shield.wav-24b7145ec64191325d840b6c0a944991.sample"]
 
 [params]
 

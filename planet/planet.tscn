@@ -1,17 +1,24 @@
-[gd_scene load_steps=16 format=3 uid="uid://3ulvy8fx1w1x"]
+[gd_scene load_steps=17 format=3 uid="uid://3ulvy8fx1w1x"]
 
 [ext_resource type="Script" uid="uid://lt2i3aowennc" path="res://planet/planet.gd" id="1_krs70"]
 [ext_resource type="Shader" uid="uid://c1pbsyuoatrm0" path="res://shaders/green_screen.gdshader" id="2_2tfgv"]
 [ext_resource type="Script" uid="uid://3p6v7o5a0t5f" path="res://planet/planet_area.gd" id="2_t5hus"]
-[ext_resource type="AudioStream" uid="uid://cfvbciijcaxc" path="res://planet/shield.wav" id="3_obm7d"]
-[ext_resource type="Shader" uid="uid://ofrf01a7jqpk" path="res://planet/2d_shield.gdshader" id="4_xly5a"]
+[ext_resource type="AudioStream" uid="uid://cfvbciijcaxc" path="res://planet/assets/shield.wav" id="3_obm7d"]
+[ext_resource type="Texture2D" uid="uid://cabp7m51seouw" path="res://planet/assets/shield.jpg" id="3_xly5a"]
+[ext_resource type="Shader" uid="uid://ofrf01a7jqpk" path="res://planet/assets/2d_shield.gdshader" id="4_xly5a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xly5a"]
 shader = ExtResource("4_xly5a")
-shader_parameter/color = Color(0.0157085, 0.248415, 1, 1)
+shader_parameter/Color_Shield = Color(0.0294876, 0.266672, 1, 1)
+shader_parameter/Step = 0.5
+shader_parameter/Speed = Vector3(0, 0, 0)
+shader_parameter/Texture = ExtResource("3_xly5a")
+shader_parameter/Size_Inner = 0.35
+shader_parameter/Opaticy = 0.125
+shader_parameter/Size_Outer = 0.155
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xly5a"]
-radius = 31.95
+radius = 40.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lrk1u"]
 shader = ExtResource("2_2tfgv")
@@ -39,38 +46,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Shield:visible")
+tracks/0/path = NodePath("Shield:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Shield:scale")
+tracks/1/path = NodePath("Shield:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.1, 0.1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/path = NodePath("Shield/Audio:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_xly5a"]
@@ -79,37 +74,25 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Shield:visible")
+tracks/0/path = NodePath("Shield:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Shield:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0.1, 0.1), Vector2(1.5, 1.5)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Shield/Audio:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shield:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [true]
 }
 
@@ -135,23 +118,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -45.0
-offset_top = -45.0
-offset_right = 45.0
-offset_bottom = 45.0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.1, 0.1)
-pivot_offset = Vector2(45, 45)
+pivot_offset = Vector2(40, 40)
 
 [node name="ShieldArea" type="Area2D" parent="Shield"]
 unique_name_in_owner = true
-position = Vector2(45, 45)
+visible = false
+position = Vector2(40, 40)
 
 [node name="CS" type="CollisionShape2D" parent="Shield/ShieldArea"]
 shape = SubResource("CircleShape2D_xly5a")
 
-[node name="Audio" type="AudioStreamPlayer2D" parent="Shield"]
+[node name="ShieldAudio" type="AudioStreamPlayer2D" parent="Shield"]
+unique_name_in_owner = true
 position = Vector2(45, 45)
 stream = ExtResource("3_obm7d")
 
