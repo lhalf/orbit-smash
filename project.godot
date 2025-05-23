@@ -29,6 +29,7 @@ Music="*res://global/music.tscn"
 ShieldViewport="*res://power_ups/shield/shield_viewport.tscn"
 SpikeBallViewport="*res://power_ups/spike_ball/spike_ball_viewport.tscn"
 LaserViewport="*res://power_ups/laser/laser_viewport.tscn"
+PlanetViewport="*res://planet/planet_viewport.tscn"
 
 [debug]
 

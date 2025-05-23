@@ -342,6 +342,7 @@ layers = 8
 [node name="Laser" type="Area2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, 33.255)
+monitoring = false
 
 [node name="CS" type="CollisionShape2D" parent="Laser"]
 position = Vector2(0, 831.416)

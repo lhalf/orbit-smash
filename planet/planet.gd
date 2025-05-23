@@ -7,6 +7,9 @@ class_name Planet extends Node2D
 @onready var shield_area: Area2D = %ShieldArea
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
+func _enter_tree() -> void:
+	%PlanetMesh.texture = PlanetViewport.get_texture()
+
 func _ready() -> void:
 	PowerUps.activate_shield.connect(put_up_shield)
 

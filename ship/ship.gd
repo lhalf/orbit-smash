@@ -29,7 +29,6 @@ const DEFAULT_CHARGE_TIMEOUT: int = 3
 @export var power_up_timer: Timer
 
 var initial_gravity: float
-var laser_active: bool = false
 
 func _ready():
 	PowerUps.infinite_charge.connect(update_charge_parameters)
@@ -37,7 +36,7 @@ func _ready():
 	PowerUps.spike_ball.connect(explode)
 	PowerUps.activate_laser.connect(
 		func(): 
-			laser_active = true
+			%Laser.monitoring = true
 			%LaserTimer.start()
 			%LaserReadyParticles.show()
 	)
@@ -66,7 +65,7 @@ func _on_charge():
 	if charge_timer.time_left < 1 and !%Warning.visible:
 		%WarningSound.play()
 		%Warning.show()
-	if laser_active and %LaserReadyParticles.visible:
+	if %Laser.monitoring and %LaserReadyParticles.visible:
 		%LaserReadyParticles.hide()
 	gravity += gravity_increase 
 	%ShipMesh.set_physics_process(true)
@@ -81,7 +80,7 @@ func _off_charge():
 		charge_particles.color = Color.WHITE
 	if %Warning.visible:
 		%Warning.hide()
-	if laser_active and !%LaserReadyParticles.visible:
+	if %Laser.monitoring and !%LaserReadyParticles.visible:
 		%LaserReadyParticles.show()
 	gravity = initial_gravity
 	%ShipMesh.set_physics_process(false)
@@ -140,12 +139,12 @@ func _on_explode_finished():
 	Messenger.game_over.emit()
 
 func _on_laser_area_entered(area: Area2D) -> void:
-	if area is MeteorArea and charge_timer.is_stopped() and laser_active:
+	if area is MeteorArea and charge_timer.is_stopped():
 		%LaserSound.play()
 		%LaserParticles.emitting = true
 		$Laser/LaserAnimations.play("fire")
 		_handle_meteor_impact(area.owner)
 
 func _on_laser_timer_timeout() -> void:
-	laser_active = false
+	%Laser.monitoring = false
 	%LaserReadyParticles.hide()
