@@ -30,10 +30,10 @@ class _PowerUp:
 var power_up: _PowerUp
 
 var power_ups = [
-	_PowerUp.new(nuke_effect, NukeViewport.get_texture(), 6), 
+	_PowerUp.new(nuke_effect, NukeViewport.get_texture(), 7), 
 	_PowerUp.new(infinite_charge_effect, InfiniteChargeViewport.get_texture(), 10),
 	_PowerUp.new(shield_effect, ShieldViewport.get_texture(), 8),
-	_PowerUp.new(spike_ball_effect, SpikeBallViewport.get_texture(), 9),
+	_PowerUp.new(spike_ball_effect, SpikeBallViewport.get_texture(), 7),
 	_PowerUp.new(laser_effect, LaserViewport.get_texture(), 10)
 ]
 

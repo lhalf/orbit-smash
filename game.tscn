@@ -16,7 +16,7 @@
 size = Vector2(20, 1150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpva3"]
-size = Vector2(20, 550)
+size = Vector2(20, 800)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iotsf"]
 shader = ExtResource("6_mfdv2")
@@ -196,14 +196,14 @@ script = ExtResource("6_i18uh")
 shape = SubResource("RectangleShape2D_odo18")
 
 [node name="LeftPowerArea" type="Area2D" parent="SpawnController"]
-position = Vector2(-380, -300)
+position = Vector2(-380, -100)
 script = ExtResource("6_i18uh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnController/LeftPowerArea"]
 shape = SubResource("RectangleShape2D_xpva3")
 
 [node name="RightPowerArea" type="Area2D" parent="SpawnController"]
-position = Vector2(380, -300)
+position = Vector2(380, -100)
 script = ExtResource("6_i18uh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnController/RightPowerArea"]

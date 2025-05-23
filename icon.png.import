@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bg1eahiknwmas"
-path="res://.godot/imported/Orbit Smash_background.png-cc5a0a153aeb62110de8926426626294.ctex"
+uid="uid://c4jwxvtf0vpc8"
+path="res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/res/mipmap-mdpi/Orbit Smash_background.png"
-dest_files=["res://.godot/imported/Orbit Smash_background.png-cc5a0a153aeb62110de8926426626294.ctex"]
+source_file="res://icon.png"
+dest_files=["res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.ctex"]
 
 [params]
 
