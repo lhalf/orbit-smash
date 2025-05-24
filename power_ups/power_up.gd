@@ -66,7 +66,10 @@ func positive_effects() -> void:
 
 func nuke_effect() -> void:
 	positive_effects()
-	add_child(explosion.instantiate())
+	# avoids explosion being scaled down when fading out, bit noddy
+	var explosion_scene = explosion.instantiate()
+	explosion_scene.global_position = position
+	get_parent().add_child(explosion_scene)
 	PowerUps.nuke.emit()
 
 func infinite_charge_effect() -> void:

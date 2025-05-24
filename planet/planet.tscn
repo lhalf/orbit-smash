@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=3 uid="uid://3ulvy8fx1w1x"]
 
 [ext_resource type="Script" uid="uid://lt2i3aowennc" path="res://planet/planet.gd" id="1_krs70"]
-[ext_resource type="Shader" uid="uid://c1pbsyuoatrm0" path="res://shaders/green_screen.gdshader" id="2_2tfgv"]
+[ext_resource type="Shader" uid="uid://c65n72et05w0p" path="res://shaders/green_screen.gdshader" id="2_2tfgv"]
 [ext_resource type="Script" uid="uid://3p6v7o5a0t5f" path="res://planet/planet_area.gd" id="2_t5hus"]
 [ext_resource type="AudioStream" uid="uid://cfvbciijcaxc" path="res://planet/assets/shield.wav" id="3_obm7d"]
 [ext_resource type="Texture2D" uid="uid://cabp7m51seouw" path="res://planet/assets/shield.jpg" id="3_xly5a"]
-[ext_resource type="Shader" uid="uid://ofrf01a7jqpk" path="res://shaders/2d_shield.gdshader" id="4_xly5a"]
+[ext_resource type="Shader" uid="uid://ytv8hdxj8tef" path="res://shaders/2d_shield.gdshader" id="4_xly5a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xly5a"]
 shader = ExtResource("4_xly5a")
