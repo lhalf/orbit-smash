@@ -7,6 +7,7 @@ func _ready() -> void:
 	if Messenger.playing:
 		start()
 	else:
+		Music.process_mode = Node.PROCESS_MODE_ALWAYS
 		%Menu.show()
 		get_tree().paused = true
 		fade_out(%Menu)
@@ -14,6 +15,7 @@ func _ready() -> void:
 # this is called even after game over
 func start() -> void:
 	get_tree().paused = false
+	%PlayButton.disabled = true
 	Messenger.playing = true
 	%Ship.show()
 	fade_in(%Score)

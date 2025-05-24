@@ -19,6 +19,6 @@ stream_5 = ExtResource("6_j3vgt")
 
 [node name="Music" type="AudioStreamPlayer2D"]
 stream = SubResource("AudioStreamPlaylist_5dyrq")
-volume_db = -10.0
+volume_db = -12.0
 autoplay = true
 max_distance = 1e+08

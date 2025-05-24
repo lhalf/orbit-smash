@@ -19,36 +19,47 @@ size = Vector2(20, 1150)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpva3"]
 size = Vector2(20, 800)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iotsf"]
+shader = ExtResource("6_mfdv2")
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/bigStarSlow = 2.0
+shader_parameter/mediumStarSlow = 6.0
+shader_parameter/smallStarSlow = 8.0
+shader_parameter/smallStarAmount = 0.002
+shader_parameter/mediumStarAmount = 0.01
+shader_parameter/bigStarAmount = 0.02
+
 [sub_resource type="Animation" id="Animation_hve3p"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../ScoreUI/Score/ScoreMargin/Score:scale")
+tracks/0/path = NodePath("Menu/PlayButtonContainer:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Menu/PlayButtonContainer:rotation")
+tracks/1/path = NodePath("Menu/PlayButtonContainer:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Menu/PlayButtonContainer:scale")
+tracks/2/path = NodePath("%Score/ScoreMargin:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -93,7 +104,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../ScoreUI/Score/ScoreMargin/Score:scale")
+tracks/0/path = NodePath("%Score/ScoreMargin:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -109,17 +120,6 @@ _data = {
 &"play_button_wobble": SubResource("Animation_vef74"),
 &"score_pop": SubResource("Animation_mfdv2")
 }
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iotsf"]
-shader = ExtResource("6_mfdv2")
-shader_parameter/bg_color = Color(0, 0, 0, 1)
-shader_parameter/offset = Vector2(0, 0)
-shader_parameter/bigStarSlow = 2.0
-shader_parameter/mediumStarSlow = 6.0
-shader_parameter/smallStarSlow = 8.0
-shader_parameter/smallStarAmount = 0.002
-shader_parameter/mediumStarAmount = 0.01
-shader_parameter/bigStarAmount = 0.02
 
 [sub_resource type="Animation" id="Animation_lc2xo"]
 length = 0.001
@@ -225,6 +225,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VersionMargin" type="MarginContainer" parent="MenuUI/Menu"]
+layout_mode = 0
 offset_right = 159.0
 offset_bottom = 72.0
 theme_override_constants/margin_left = 10
@@ -293,20 +294,13 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="PlayButton" type="Button" parent="MenuUI/Menu/PlayButtonContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("8_vef74")
 theme_override_font_sizes/font_size = 100
 action_mode = 0
 text = "PLAY"
 flat = true
-
-[node name="UIAnimations" type="AnimationPlayer" parent="MenuUI/Menu"]
-unique_name_in_owner = true
-root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_mfdv2")
-}
-autoplay = "play_button_wobble"
 
 [node name="ScoreUI" type="CanvasLayer" parent="."]
 
@@ -329,7 +323,11 @@ offset_left = -72.5
 offset_right = 72.5
 offset_bottom = 70.0
 grow_horizontal = 2
-theme_override_constants/margin_top = 30
+pivot_offset = Vector2(112.5, 60)
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
 [node name="Score" type="Label" parent="ScoreUI/Score/ScoreMargin"]
 layout_mode = 2
@@ -353,9 +351,18 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.247059)
 
+[node name="UIAnimations" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+root_node = NodePath("../MenuUI")
+libraries = {
+&"": SubResource("AnimationLibrary_mfdv2")
+}
+autoplay = "play_button_wobble"
+
 [node name="Animations" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
-root_node = NodePath("../MenuUI/Menu/UIAnimations")
+root_node = NodePath("../UIAnimations")
 libraries = {
 &"": SubResource("AnimationLibrary_lc2xo")
 }
