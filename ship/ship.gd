@@ -132,6 +132,7 @@ func explode() -> void:
 	%ExplodeSound.play()
 	%Indicator.hide()
 	%Warning.hide()
+	%Laser.hide()
 	%ShipArea.set_deferred("monitoring", false)
 	set_physics_process(false)
 
