@@ -135,6 +135,7 @@ func explode() -> void:
 	%Indicator.hide()
 	%Warning.hide()
 	%Laser.hide()
+	%Laser.monitoring = false
 	%ShipArea.set_deferred("monitoring", false)
 	set_physics_process(false)
 
