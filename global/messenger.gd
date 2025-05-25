@@ -21,6 +21,10 @@ func _input(_event):
 		print("DEBUG: spawning power up")
 		debug_spawn_power_up.emit()
 
-	if Input.is_key_pressed(KEY_O):
-		print("DEBUG: spawning meteor")
-		debug_spawn_meteor.emit()
+	if Input.is_key_pressed(KEY_S):
+		print("DEBUG: spawning shield")
+		PowerUps.activate_shield.emit()
+	
+	if Input.is_key_pressed(KEY_L):
+		print("DEBUG: activate lasers")
+		PowerUps.activate_laser.emit()

@@ -62,6 +62,7 @@ func _on_charge():
 		charge_particles.emitting = true
 	if charge_timeout == DEFAULT_CHARGE_TIMEOUT:
 		charge_particles.color = charge_particles.color.darkened(0.01)
+		trail_particles.color = trail_particles.color.darkened(0.01)
 	if charge_timer.time_left < 1 and !%Warning.visible:
 		%WarningSound.play()
 		%Warning.show()
@@ -78,6 +79,7 @@ func _off_charge():
 	if charge_particles.emitting:
 		charge_particles.emitting = false
 		charge_particles.color = Color.WHITE
+		trail_particles.color = Color.WHITE
 	if %Warning.visible:
 		%Warning.hide()
 	if %Laser.monitoring and !%LaserReadyParticles.visible:
@@ -89,7 +91,7 @@ func _movement(delta: float):
 	position += velocity*delta
 	var distance = position.length()
 	velocity += (gravity * (position-planet.position) / distance) / distance*distance
-	rotation = (position - planet.position).angle() + 178
+	rotation_degrees = rad_to_deg((position - planet.position).angle()) + 120
 
 func _on_area_entered(area):
 	if not area.monitoring:

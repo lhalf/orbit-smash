@@ -2,12 +2,12 @@
 
 [ext_resource type="FontFile" uid="uid://b8s761ya8undy" path="res://themes/retro_font.ttf" id="1_ltdns"]
 [ext_resource type="Script" uid="uid://b1xe4h4oxpx7o" path="res://menus/game_over.gd" id="1_rgm6v"]
-[ext_resource type="Shader" uid="uid://dm1wcjbh836io" path="res://shaders/stars.gdshader" id="2_kwtkc"]
+[ext_resource type="Shader" uid="uid://cm4lgoj44ob7w" path="res://shaders/stars.gdshader" id="2_kwtkc"]
 [ext_resource type="LabelSettings" uid="uid://cubigmnt6nnmi" path="res://themes/retro_font.tres" id="2_uck3y"]
 [ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://themes/retro_theme.tres" id="3_4o3eo"]
 [ext_resource type="Script" uid="uid://cmp1g3naeodo7" path="res://score/label.gd" id="3_f02aq"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgyup"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwtkc"]
 shader = ExtResource("2_kwtkc")
 shader_parameter/bg_color = Color(0, 0, 0, 1)
 shader_parameter/offset = Vector2(0, 0)
@@ -34,7 +34,7 @@ hiscore_label = NodePath("CanvasLayer/VBoxContainer/Hiscore")
 
 [node name="Background" type="ColorRect" parent="CanvasLayer"]
 process_mode = 3
-material = SubResource("ShaderMaterial_mgyup")
+material = SubResource("ShaderMaterial_kwtkc")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

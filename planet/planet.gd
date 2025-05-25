@@ -17,7 +17,10 @@ func _on_planet_area_entered(area):
 	if area is MeteorArea and mesh.visible:
 		area.owner.call_deferred("queue_free")
 		mesh.hide()
+		explode.direction = area.global_position.direction_to(global_position)
 		explode.emitting = true
+		%SmokeParticles.emitting = true
+		%ExplosionSound.play()
 
 func _on_explode_finished():
 	Messenger.game_over.emit()
@@ -26,14 +29,15 @@ func put_up_shield() -> void:
 	if PowerUps.shield_active:
 		return
 	
-	%ShieldAudio.play()
+	$%ShieldAudio.play()
 	PowerUps.shield_active = true
-	shield_area.set_deferred("monitoring", true)
+	shield_area.monitoring = true
 	animation_player.play("spawn_shield")
 
 func _on_shield_area_entered(area: Area2D) -> void:
 	if area is MeteorArea:
+		PowerUps.shield_active = false
 		area.owner.call_deferred("explode", 0)
 		shield_area.set_deferred("monitoring", false)
-		shield.hide()
-		PowerUps.shield_active = false
+		animation_player.play("RESET")
+		%ShieldDownAudio.play()

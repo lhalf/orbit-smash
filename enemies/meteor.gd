@@ -34,6 +34,8 @@ func _physics_process(delta):
 func explode(with_score: int):
 	score.pop_up_score(with_score)
 	area.monitoring = false
+	# prevents shield from picking up area of meteors
+	area.set_deferred("monitorable", false)
 	set_physics_process(false)
 	mesh.hide()
 	explosion.emitting = true

@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bijgsy8j8eh7y"]
+[gd_scene load_steps=10 format=3 uid="uid://bijgsy8j8eh7y"]
 
 [ext_resource type="Script" uid="uid://b2oan4p7ci3b8" path="res://score/score.gd" id="1_0q7rf"]
 [ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://themes/retro_theme.tres" id="1_k6olr"]
 [ext_resource type="LabelSettings" uid="uid://cubigmnt6nnmi" path="res://themes/retro_font.tres" id="2_hlvnk"]
+[ext_resource type="Script" uid="uid://l21yat1lp4n7" path="res://score/score_area.gd" id="4_n1p00"]
+[ext_resource type="AudioStream" uid="uid://rupe2xf4c58o" path="res://score/assets/multi_score.wav" id="5_lxho0"]
 
 [sub_resource type="Animation" id="Animation_0h6j7"]
 length = 0.001
@@ -65,6 +67,9 @@ _data = {
 &"pop_up": SubResource("Animation_fiknn")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3wfgt"]
+radius = 75.0
+
 [node name="Score" type="Node2D" node_paths=PackedStringArray("label", "animation")]
 scale = Vector2(0.1, 0.1)
 script = ExtResource("1_0q7rf")
@@ -95,3 +100,20 @@ label_settings = ExtResource("2_hlvnk")
 libraries = {
 &"": SubResource("AnimationLibrary_53gvs")
 }
+
+[node name="ScoreArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(0.333333, 0.333333)
+monitoring = false
+monitorable = false
+script = ExtResource("4_n1p00")
+
+[node name="CS" type="CollisionShape2D" parent="ScoreArea"]
+shape = SubResource("CircleShape2D_3wfgt")
+
+[node name="MultiScoreSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_lxho0")
+volume_db = -15.0
+
+[connection signal="area_entered" from="ScoreArea" to="." method="_on_score_area_entered"]
