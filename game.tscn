@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://1cg450i0jrns"]
 
-[ext_resource type="Script" uid="uid://dfomm5xsghtgc" path="res://game.gd" id="1_j5wjh"]
+[ext_resource type="Script" uid="uid://bo87mv8f3n7mf" path="res://game.gd" id="1_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://3ulvy8fx1w1x" path="res://planet/planet.tscn" id="1_tf1ba"]
 [ext_resource type="PackedScene" uid="uid://caafcqt0osnjl" path="res://ship/ship.tscn" id="1_yhm3d"]
 [ext_resource type="LabelSettings" uid="uid://cubigmnt6nnmi" path="res://themes/retro_font.tres" id="2_dc7od"]
@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://cnbdw6psen1ir" path="res://spawn_controller/spawn_area.gd" id="6_i18uh"]
 [ext_resource type="Shader" uid="uid://cm4lgoj44ob7w" path="res://shaders/stars.gdshader" id="6_mfdv2"]
 [ext_resource type="FontFile" uid="uid://b8s761ya8undy" path="res://themes/retro_font.ttf" id="7_mfdv2"]
-[ext_resource type="Script" uid="uid://bmiaosdwurb7y" path="res://menus/hi_score.gd" id="8_iotsf"]
+[ext_resource type="Script" uid="uid://cvw5pwxui23x5" path="res://menus/hi_score.gd" id="8_iotsf"]
 [ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://themes/retro_theme.tres" id="8_vef74"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odo18"]
