@@ -15,8 +15,8 @@ run/main_scene="uid://1cg450i0jrns"
 config/features=PackedStringArray("4.4", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/fullsize=false
-boot_splash/image="uid://d2ofa7ue0bfob"
-config/icon="uid://c4jwxvtf0vpc8"
+boot_splash/image="uid://bav0fl1v1nacj"
+config/icon="uid://dthxads2ro6ol"
 
 [autoload]
 

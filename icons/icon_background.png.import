@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2ofa7ue0bfob"
-path="res://.godot/imported/lhalf.png-3f374f9061711d8f47f01e1528b78f3d.ctex"
+uid="uid://b768vwnykx8ip"
+path="res://.godot/imported/icon_background.png-7c479113bc74649f6884d5867344a330.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://lhalf.png"
-dest_files=["res://.godot/imported/lhalf.png-3f374f9061711d8f47f01e1528b78f3d.ctex"]
+source_file="res://icons/icon_background.png"
+dest_files=["res://.godot/imported/icon_background.png-7c479113bc74649f6884d5867344a330.ctex"]
 
 [params]
 
