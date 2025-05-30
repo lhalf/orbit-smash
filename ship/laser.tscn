@@ -1,0 +1,121 @@
+[gd_scene load_steps=8 format=3 uid="uid://jvde65cejket"]
+
+[ext_resource type="Script" uid="uid://oct7y7isfnq3" path="res://ship/laser.gd" id="1_1bwh7"]
+[ext_resource type="AudioStream" uid="uid://bkmdcqgs1iqgr" path="res://ship/assets/laser.wav" id="1_fopxo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gcsj1"]
+size = Vector2(20, 1682.83)
+
+[sub_resource type="QuadMesh" id="QuadMesh_gcsj1"]
+
+[sub_resource type="Animation" id="Animation_8a87b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gcsj1"]
+resource_name = "fire"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FireParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kogll"]
+_data = {
+&"RESET": SubResource("Animation_8a87b"),
+&"fire_laser": SubResource("Animation_gcsj1")
+}
+
+[node name="Laser" type="Area2D"]
+monitoring = false
+script = ExtResource("1_1bwh7")
+
+[node name="CS" type="CollisionShape2D" parent="."]
+position = Vector2(0, 831.416)
+shape = SubResource("RectangleShape2D_gcsj1")
+
+[node name="Mesh" type="MeshInstance2D" parent="."]
+visible = false
+position = Vector2(1.26951, 836.745)
+scale = Vector2(2.53902, 1670.43)
+mesh = SubResource("QuadMesh_gcsj1")
+
+[node name="FireParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0.77, -0.41)
+emitting = false
+amount = 40
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 500.0
+scale_amount_max = 5.0
+
+[node name="LaserSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("1_fopxo")
+volume_db = -10.0
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_kogll")
+}

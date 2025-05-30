@@ -24,33 +24,26 @@ const DEFAULT_CHARGE_TIMEOUT: int = 3
 @export_category("Scoring")
 @export var score_distance_divider: int = 75
 
-@export_category("Power ups")
-# one timer so each time we get power up it resets
-@export var power_up_timer: Timer
-
 var initial_gravity: float
 
 func _ready():
-	PowerUps.infinite_charge.connect(update_charge_parameters)
-	PowerUps.infinite_charge.connect(start_power_up_reset_timer)
+	PowerUps.infinite_charge.connect(activate_infinite_charge)
+	PowerUps.activate_laser.connect(activate_laser)
+	PowerUps.activate_mirror.connect(activate_mirror)
 	PowerUps.spike_ball.connect(explode)
-	PowerUps.activate_laser.connect(
-		func(): 
-			%Laser.monitoring = true
-			%LaserTimer.start()
-			%LaserReadyParticles.show()
-	)
 	
-	# move this somewhere else / think of better way of managing power up timeouts
-	power_up_timer.connect("timeout", update_charge_parameters.bind(DEFAULT_CHARGE_TIMEOUT, DEFAULT_GRAVITY_INCREASE))
-	initial_gravity = gravity
+	# when explode is over
 	explode_particles.connect("finished", _on_explode_finished)
+	
+	initial_gravity = gravity
 
 func _physics_process(delta):
 	if Input.is_action_pressed("touch"):
 		_on_charge()
 	elif gravity < initial_gravity:
 		_off_charge()
+	# we always do this regardless of it's visible so it appears in the correct location
+	%Mirror.update(position, rotation_degrees, planet.position)
 	_movement(delta)
 
 func _on_charge():
@@ -78,8 +71,8 @@ func _off_charge():
 		charge_timer.stop()
 	if charge_particles.emitting:
 		charge_particles.emitting = false
-		charge_particles.color = Color.WHITE
-		trail_particles.color = Color.WHITE
+	if charge_timeout == DEFAULT_CHARGE_TIMEOUT:
+		update_particle_color(Color.WHITE)
 	if %Warning.visible:
 		%Warning.hide()
 	if %Laser.monitoring and !%LaserReadyParticles.visible:
@@ -109,19 +102,6 @@ func _handle_meteor_impact(meteor: Meteor):
 func _handle_power_up_impact(power_up: PowerUp):
 	power_up.on_hit()
 
-func update_charge_parameters(timeout: int, charge_speed: float) -> void:
-	charge_timeout = timeout
-	gravity_increase = charge_speed
-	# force new charge timeout on timer
-	if !charge_timer.is_stopped():
-		charge_timer.stop()
-
-func start_power_up_reset_timer(_timeout, _speed) -> void:
-	# reset power up timeout if a new one starts
-	if !power_up_timer.is_stopped():
-		power_up_timer.stop()
-	power_up_timer.start()
-
 func _on_charge_timer_timeout():
 	explode()
 
@@ -136,19 +116,66 @@ func explode() -> void:
 	%Warning.hide()
 	%Laser.hide()
 	%Laser.monitoring = false
+	%Mirror.disable()
 	%ShipArea.set_deferred("monitoring", false)
+	%ShipArea.set_deferred("monitorable", false)
 	set_physics_process(false)
 
 func _on_explode_finished():
 	Messenger.game_over.emit()
 
+# infinite charge
+
+func activate_infinite_charge(timeout: int, charge_speed: float) -> void:
+	update_particle_color(Color.PALE_GOLDENROD)
+	charge_timeout = timeout
+	gravity_increase = charge_speed
+	%InfiniteChargeTimer.start()
+
+func update_particle_color(color: Color) -> void:
+	trail_particles.color = color
+	charge_particles.color = color
+
+func _on_infinite_charge_timer_timeout() -> void:
+	update_particle_color(Color.WHITE)
+	charge_timeout = DEFAULT_CHARGE_TIMEOUT
+	gravity_increase = DEFAULT_GRAVITY_INCREASE
+
+# laser
+
+func activate_laser() -> void:
+	%Laser.monitoring = true
+	%LaserTimer.start()
+	%LaserReadyParticles.show()
+	if %Mirror.visible:
+		%Mirror.set_laser_active(true)
+
 func _on_laser_area_entered(area: Area2D) -> void:
 	if area is MeteorArea and charge_timer.is_stopped():
-		%LaserSound.play()
-		%LaserParticles.emitting = true
-		$Laser/LaserAnimations.play("fire")
+		%Laser.fire()
 		_handle_meteor_impact(area.owner)
 
 func _on_laser_timer_timeout() -> void:
 	%Laser.monitoring = false
 	%LaserReadyParticles.hide()
+	if %Mirror.visible:
+		%Mirror.set_laser_active(false)
+
+# mirror
+
+func activate_mirror() -> void:
+	%Mirror.enable()
+	# if lasers already active, activate mirror laser
+	if %Laser.monitoring:
+		%Mirror.set_laser_active(true)
+
+func _on_mirror_area_entered(area: Area2D) -> void:
+	if not area.monitoring:
+		return
+	if area is MeteorArea:
+		_handle_meteor_impact(area.owner)
+
+func _on_mirror_laser_area_entered(area: Area2D) -> void:
+	if area is MeteorArea and charge_timer.is_stopped():
+		%MirrorLaser.fire()
+		_handle_meteor_impact(area.owner)

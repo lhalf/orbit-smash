@@ -17,6 +17,8 @@ class_name PowerUp extends Node2D
 var target_position: Vector2
 var t: float = 0.0
 
+var current_power_up: _PowerUp
+
 class _PowerUp:
 	var function: Callable
 	var texture: Texture
@@ -27,22 +29,21 @@ class _PowerUp:
 		texture = _texture
 		lifetime = _lifetime
 
-var power_up: _PowerUp
-
-var power_ups = [
+var available_power_ups = [
 	_PowerUp.new(nuke_effect, NukeViewport.get_texture(), 7), 
 	_PowerUp.new(infinite_charge_effect, InfiniteChargeViewport.get_texture(), 10),
 	_PowerUp.new(shield_effect, ShieldViewport.get_texture(), 8),
 	_PowerUp.new(spike_ball_effect, SpikeBallViewport.get_texture(), 7),
-	_PowerUp.new(laser_effect, LaserViewport.get_texture(), 10)
+	_PowerUp.new(laser_effect, LaserViewport.get_texture(), 10),
+	_PowerUp.new(mirror_effect, MirrorViewport.get_texture(), 10)
 ]
 
 func _ready():
-	power_up = power_ups[randi() % power_ups.size()]
-	timer.wait_time = power_up.lifetime
+	current_power_up = available_power_ups[randi() % available_power_ups.size()]
+	timer.wait_time = current_power_up.lifetime
 	timer.connect("timeout", on_timeout)
 	timer.start()
-	mesh.texture = power_up.texture
+	mesh.texture = current_power_up.texture
 	mesh.rotation_degrees = randi_range(0, 360)
 
 func _physics_process(delta):
@@ -55,7 +56,7 @@ func on_timeout() -> void:
 	tween.connect("finished", queue_free)
 
 func on_hit():
-	power_up.function.call()
+	current_power_up.function.call()
 	area.monitoring = false
 
 func positive_effects() -> void:
@@ -87,3 +88,7 @@ func spike_ball_effect() -> void:
 func laser_effect() -> void:
 	positive_effects()
 	PowerUps.activate_laser.emit()
+
+func mirror_effect() -> void:
+	positive_effects()
+	PowerUps.activate_mirror.emit()

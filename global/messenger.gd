@@ -28,3 +28,7 @@ func _input(_event):
 	if Input.is_key_pressed(KEY_L):
 		print("DEBUG: activate lasers")
 		PowerUps.activate_laser.emit()
+	
+	if Input.is_key_pressed(KEY_M):
+		print("DEBUG: activate mirror")
+		PowerUps.activate_mirror.emit()

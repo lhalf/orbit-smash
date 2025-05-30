@@ -28,6 +28,7 @@ shader_parameter/key_color = Color(1, 0, 0, 1)
 shader_parameter/similarity = 0.4
 shader_parameter/smoothness = 0.08
 shader_parameter/spill = 0.1
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_1ibu4"]
 size = Vector2(100, 100)
