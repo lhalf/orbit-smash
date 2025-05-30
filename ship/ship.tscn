@@ -1,6 +1,6 @@
 [gd_scene load_steps=34 format=4 uid="uid://caafcqt0osnjl"]
 
-[ext_resource type="Script" uid="uid://do626j4vbwo1s" path="res://ship/ship.gd" id="1_06dsp"]
+[ext_resource type="Script" uid="uid://h6gnvcbt422d" path="res://ship/ship.gd" id="1_06dsp"]
 [ext_resource type="AudioStream" uid="uid://d3ipq4nmmdoig" path="res://ship/assets/charge.wav" id="2_7bgck"]
 [ext_resource type="AudioStream" uid="uid://do5jubuuul52y" path="res://ship/assets/explosion.wav" id="3_54674"]
 [ext_resource type="Script" uid="uid://bfeadtuafac" path="res://ship/indicator.gd" id="3_tdd68"]
@@ -11,8 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://dsa6pv30du5b1" path="res://ship/assets/warning.wav" id="7_gcsj1"]
 [ext_resource type="Script" uid="uid://ckgq02tj0a77g" path="res://ship/mesh.gd" id="8_mysf1"]
 [ext_resource type="PackedScene" uid="uid://jvde65cejket" path="res://ship/laser.tscn" id="11_kogll"]
-[ext_resource type="Script" uid="uid://cw458c55gwvoj" path="res://ship/mirror.gd" id="13_culm4"]
-[ext_resource type="Shader" uid="uid://ytv8hdxj8tef" path="res://shaders/2d_shield.gdshader" id="13_kogll"]
+[ext_resource type="Script" uid="uid://2kklre8tng8r" path="res://ship/mirror.gd" id="13_culm4"]
+[ext_resource type="Shader" uid="uid://dh350vwa3ysum" path="res://shaders/2d_shield.gdshader" id="13_kogll"]
 
 [sub_resource type="Shader" id="Shader_8a87b"]
 code = "shader_type canvas_item;

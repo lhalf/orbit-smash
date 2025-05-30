@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://jvde65cejket"]
 
-[ext_resource type="Script" uid="uid://oct7y7isfnq3" path="res://ship/laser.gd" id="1_1bwh7"]
+[ext_resource type="Script" uid="uid://csgjntq0uwwqi" path="res://ship/laser.gd" id="1_1bwh7"]
 [ext_resource type="AudioStream" uid="uid://bkmdcqgs1iqgr" path="res://ship/assets/laser.wav" id="1_fopxo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gcsj1"]
