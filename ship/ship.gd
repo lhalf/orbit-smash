@@ -106,7 +106,10 @@ func _on_charge_timer_timeout():
 	explode()
 
 func explode() -> void:
+	set_physics_process(false)
 	explode_particles.emitting = true
+	%SmokeParticles.emitting = true
+	charge_timer.stop()
 	trail_particles.hide()
 	charge_particles.hide()
 	mesh.hide()
@@ -119,7 +122,6 @@ func explode() -> void:
 	%Mirror.disable()
 	%ShipArea.set_deferred("monitoring", false)
 	%ShipArea.set_deferred("monitorable", false)
-	set_physics_process(false)
 
 func _on_explode_finished():
 	Messenger.game_over.emit()

@@ -8,6 +8,8 @@ signal meteor_exploded
 signal debug_spawn_meteor
 signal debug_spawn_power_up
 
+# ship indicator is on layer 10
+
 #DEBUG
 func _input(_event):
 	if Input.is_key_pressed(KEY_ESCAPE):

@@ -10,6 +10,8 @@ var off_screen: bool = true
 func _process(_delta):
 	if off_screen:
 		if !mesh.visible:
+			var tween = create_tween()
+			tween.tween_property(mesh.material, "shader_parameter/modulate_color", Color(1,1,1,1), 0.5)
 			animation.play("grow")
 			mesh.show()
 		var clamp_position = global_position
