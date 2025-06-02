@@ -489,6 +489,7 @@ layers = 8
 [node name="LaserTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 5.0
+one_shot = true
 
 [node name="Laser" parent="." instance=ExtResource("11_kogll")]
 unique_name_in_owner = true
@@ -556,6 +557,7 @@ monitorable = false
 [node name="MirrorTimer" type="Timer" parent="Mirror"]
 unique_name_in_owner = true
 wait_time = 13.0
+one_shot = true
 
 [connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]
 [connection signal="timeout" from="InfiniteChargeTimer" to="." method="_on_infinite_charge_timer_timeout"]

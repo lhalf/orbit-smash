@@ -21,7 +21,11 @@ func enable() -> void:
 func disable() -> void:
 	var tween = create_tween()
 	tween.tween_property(%MirrorMesh.material, "shader_parameter/modulate_color", FADE_OUT_COLOR, FADE_TIME)
-	tween.connect("finished", hide)
+	tween.connect("finished", func():
+		# this prevents the hide happening if we hit another mirror power up when fading out
+		if %MirrorTimer.is_stopped():
+			hide()
+	)
 	
 	%MirrorArea.set_deferred("monitoring", false)
 	%MirrorArea.set_deferred("monitorable", false)
