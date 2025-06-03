@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=4 uid="uid://c2tbm1c0ot5fu"]
 
 [ext_resource type="Texture2D" uid="uid://dsw4v2grrhuv0" path="res://enemies/assets/moon_PUSHILIN_moon.png" id="1_lowac"]
-[ext_resource type="Script" uid="uid://dc0gax525gewa" path="res://enemies/moon.gd" id="2_kxcw4"]
+[ext_resource type="Script" uid="uid://dc0gax525gewa" path="res://enemies/meteor/moon.gd" id="2_kxcw4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qam72"]
 resource_name = "moon.002"

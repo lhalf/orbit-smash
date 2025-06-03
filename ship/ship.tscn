@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://caafcqt0osnjl"]
+[gd_scene load_steps=44 format=4 uid="uid://caafcqt0osnjl"]
 
 [ext_resource type="Script" uid="uid://h6gnvcbt422d" path="res://ship/ship.gd" id="1_06dsp"]
 [ext_resource type="AudioStream" uid="uid://d3ipq4nmmdoig" path="res://ship/assets/charge.wav" id="2_7bgck"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://dsa6pv30du5b1" path="res://ship/assets/warning.wav" id="7_gcsj1"]
 [ext_resource type="Script" uid="uid://ckgq02tj0a77g" path="res://ship/mesh.gd" id="8_mysf1"]
 [ext_resource type="Shader" uid="uid://c65n72et05w0p" path="res://shaders/green_screen.gdshader" id="9_culm4"]
+[ext_resource type="Script" uid="uid://d3xsxiuam2lel" path="res://ship/ship_area.gd" id="10_ads1e"]
 [ext_resource type="PackedScene" uid="uid://jvde65cejket" path="res://ship/laser.tscn" id="11_kogll"]
 [ext_resource type="Script" uid="uid://2kklre8tng8r" path="res://ship/mirror.gd" id="13_culm4"]
 [ext_resource type="Shader" uid="uid://dh350vwa3ysum" path="res://shaders/2d_shield.gdshader" id="13_kogll"]
@@ -423,6 +424,7 @@ libraries = {
 
 [node name="ShipArea" type="Area2D" parent="."]
 unique_name_in_owner = true
+script = ExtResource("10_ads1e")
 
 [node name="CS" type="CollisionShape2D" parent="ShipArea"]
 position = Vector2(0.869565, 6.08696)

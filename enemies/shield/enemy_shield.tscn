@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://pdsbn4vujwqd"]
+
+[ext_resource type="Shader" uid="uid://dh350vwa3ysum" path="res://shaders/2d_shield.gdshader" id="1_mej2t"]
+[ext_resource type="Script" uid="uid://dfppc70xwlb2w" path="res://enemies/shield/enemy_shield.gd" id="2_bevco"]
+[ext_resource type="AudioStream" uid="uid://dg0rs74d3u0cw" path="res://enemies/shield/assets/explosion.wav" id="3_larh7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wimpd"]
+shader = ExtResource("1_mej2t")
+shader_parameter/Color_Shield = Color(1, 0, 0, 1)
+shader_parameter/Step = 0.0
+shader_parameter/Speed = Vector3(0, 0, 0)
+shader_parameter/Size_Inner = 0.0
+shader_parameter/Opaticy = -0.14
+shader_parameter/Size_Outer = 0.235
+
+[sub_resource type="QuadMesh" id="QuadMesh_mej2t"]
+size = Vector2(120, 120)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bevco"]
+radius = 60.0
+
+[sub_resource type="Curve" id="Curve_larh7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.421348, 0.685393), 0.0, 0.0, 0, 0, Vector2(0.646067, 0.47191), -1.02222, -1.02222, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_dxwgc"]
+colors = PackedColorArray(1, 0, 0, 0.290196, 1, 1, 1, 0)
+
+[node name="EnemyShield" type="MeshInstance2D"]
+material = SubResource("ShaderMaterial_wimpd")
+mesh = SubResource("QuadMesh_mej2t")
+script = ExtResource("2_bevco")
+
+[node name="ShieldArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="CS" type="CollisionShape2D" parent="ShieldArea"]
+shape = SubResource("CircleShape2D_bevco")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_larh7")
+volume_db = -10.0
+
+[node name="ExplodeParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 80
+one_shot = true
+explosiveness = 0.9
+emission_shape = 2
+emission_sphere_radius = 60.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+angular_velocity_min = 500.0
+angular_velocity_max = 500.0
+orbit_velocity_min = -0.2
+orbit_velocity_max = 0.2
+linear_accel_min = 100.0
+linear_accel_max = 100.0
+tangential_accel_min = 100.0
+tangential_accel_max = 100.0
+angle_max = 360.0
+scale_amount_min = 8.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_larh7")
+color_ramp = SubResource("Gradient_dxwgc")
+
+[connection signal="area_entered" from="ShieldArea" to="." method="_on_shield_area_entered"]
+[connection signal="finished" from="ExplodeParticles" to="." method="_on_explode_particles_finished"]

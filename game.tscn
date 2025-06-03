@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://1cg450i0jrns"]
 
-[ext_resource type="Script" uid="uid://bo87mv8f3n7mf" path="res://game.gd" id="1_j5wjh"]
+[ext_resource type="Script" uid="uid://dfomm5xsghtgc" path="res://game.gd" id="1_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://3ulvy8fx1w1x" path="res://planet/planet.tscn" id="1_tf1ba"]
 [ext_resource type="PackedScene" uid="uid://caafcqt0osnjl" path="res://ship/ship.tscn" id="1_yhm3d"]
 [ext_resource type="LabelSettings" uid="uid://cubigmnt6nnmi" path="res://themes/retro_font.tres" id="2_dc7od"]
@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://cnbdw6psen1ir" path="res://spawn_controller/spawn_area.gd" id="6_i18uh"]
 [ext_resource type="Shader" uid="uid://cm4lgoj44ob7w" path="res://shaders/stars.gdshader" id="6_mfdv2"]
 [ext_resource type="FontFile" uid="uid://b8s761ya8undy" path="res://themes/retro_font.ttf" id="7_mfdv2"]
-[ext_resource type="Script" uid="uid://cvw5pwxui23x5" path="res://menus/hi_score.gd" id="8_iotsf"]
+[ext_resource type="Script" uid="uid://bmiaosdwurb7y" path="res://menus/hi_score.gd" id="8_iotsf"]
 [ext_resource type="Theme" uid="uid://cwpd4cqkg8tqe" path="res://themes/retro_theme.tres" id="8_vef74"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odo18"]
@@ -176,15 +176,18 @@ rotation = -2.29511
 planet = NodePath("../Planet")
 velocity = Vector2(200, 0)
 
-[node name="SpawnController" type="Node2D" parent="." node_paths=PackedStringArray("meteor_spawn_areas", "power_spawn_areas", "target")]
+[node name="SpawnController" type="Node2D" parent="." node_paths=PackedStringArray("meteor_spawn_areas", "power_spawn_areas", "orbit_spawn_point", "planet")]
 script = ExtResource("5_rrgt6")
 meteor_spawn_areas = [NodePath("LeftMeteorArea"), NodePath("RightMeteorArea")]
 power_spawn_areas = [NodePath("LeftPowerArea"), NodePath("RightPowerArea")]
-target = NodePath("../Planet")
+orbit_spawn_point = NodePath("OrbitSpawnPoint")
+planet = NodePath("../Planet")
+metadata/_custom_type_script = "uid://b8b3oexddy74q"
 
 [node name="LeftMeteorArea" type="Area2D" parent="SpawnController"]
 position = Vector2(-360, 0)
 script = ExtResource("6_i18uh")
+metadata/_custom_type_script = "uid://cnbdw6psen1ir"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnController/LeftMeteorArea"]
 shape = SubResource("RectangleShape2D_odo18")
@@ -192,6 +195,7 @@ shape = SubResource("RectangleShape2D_odo18")
 [node name="RightMeteorArea" type="Area2D" parent="SpawnController"]
 position = Vector2(360, 0)
 script = ExtResource("6_i18uh")
+metadata/_custom_type_script = "uid://cnbdw6psen1ir"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnController/RightMeteorArea"]
 shape = SubResource("RectangleShape2D_odo18")
@@ -199,6 +203,7 @@ shape = SubResource("RectangleShape2D_odo18")
 [node name="LeftPowerArea" type="Area2D" parent="SpawnController"]
 position = Vector2(-380, -100)
 script = ExtResource("6_i18uh")
+metadata/_custom_type_script = "uid://cnbdw6psen1ir"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnController/LeftPowerArea"]
 shape = SubResource("RectangleShape2D_xpva3")
@@ -206,9 +211,13 @@ shape = SubResource("RectangleShape2D_xpva3")
 [node name="RightPowerArea" type="Area2D" parent="SpawnController"]
 position = Vector2(380, -100)
 script = ExtResource("6_i18uh")
+metadata/_custom_type_script = "uid://cnbdw6psen1ir"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnController/RightPowerArea"]
 shape = SubResource("RectangleShape2D_xpva3")
+
+[node name="OrbitSpawnPoint" type="Marker2D" parent="SpawnController"]
+position = Vector2(0, -400)
 
 [node name="MenuUI" type="CanvasLayer" parent="."]
 process_mode = 3

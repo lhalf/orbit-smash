@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://7kd16bufnlha"]
 
-[ext_resource type="Script" uid="uid://cuurx6s3xgc7e" path="res://enemies/meteor.gd" id="1_mmw5e"]
+[ext_resource type="Script" uid="uid://cuurx6s3xgc7e" path="res://enemies/meteor/meteor.gd" id="1_mmw5e"]
 [ext_resource type="Shader" uid="uid://c65n72et05w0p" path="res://shaders/green_screen.gdshader" id="2_fw6np"]
-[ext_resource type="Script" uid="uid://chk37mb3m8ttn" path="res://enemies/meteor_area.gd" id="2_hx5jx"]
+[ext_resource type="Script" uid="uid://chk37mb3m8ttn" path="res://enemies/meteor/meteor_area.gd" id="2_hx5jx"]
 [ext_resource type="PackedScene" uid="uid://bijgsy8j8eh7y" path="res://score/score.tscn" id="4_mfywi"]
 [ext_resource type="AudioStream" uid="uid://gsmlq2xt8v7j" path="res://enemies/assets/explosion.wav" id="5_ocvfs"]
 

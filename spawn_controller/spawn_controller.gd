@@ -2,32 +2,37 @@ class_name SpawnController extends Node2D
 
 @export var meteor_spawn_areas: Array[SpawnArea]
 @export var power_spawn_areas: Array[SpawnArea]
-@export var target: Node2D
+@export var orbit_spawn_point: Marker2D
+@export var planet: Node2D
 
-@onready var meteor = preload("res://enemies/meteor.tscn")
+@onready var meteor = preload("res://enemies/meteor/meteor.tscn")
 @onready var power_up = preload("res://power_ups/power_up.tscn")
+@onready var jammer = preload("res://enemies/jammer/jammer.tscn")
 
 var rng = RandomNumberGenerator.new()
 
 func _ready():
 	Messenger.meteor_exploded.connect(new_spawns)
 	PowerUps.nuke.connect(explode_all_meteors)
-	Messenger.debug_spawn_meteor.connect(spawn_new)
+	spawn_meteor()
+	
+	# DEBUG
+	Messenger.debug_spawn_meteor.connect(spawn_meteor)
 	Messenger.debug_spawn_power_up.connect(spawn_power_up)
-	spawn_new()
+	Messenger.debug_spawn_jammer.connect(spawn_jammer)
 
 func new_spawns() -> void:
 	if meteor_count() < 10:
-		spawn_new()
+		spawn_meteor()
 	if Scores.current % 3 == 0:
-		spawn_new()
+		spawn_meteor()
 	if Scores.current % 5 == 0:
 		spawn_power_up()
 
-func spawn_new() -> void:
+func spawn_meteor() -> void:
 	var meteor_object = meteor.instantiate()
 	meteor_object.position = meteor_spawn_areas.pick_random().get_random_point()
-	meteor_object.target_position = target.global_position
+	meteor_object.target_position = planet.global_position
 	call_deferred("add_child", meteor_object)
 
 func spawn_power_up() -> void:
@@ -37,6 +42,15 @@ func spawn_power_up() -> void:
 	power_up_object.target_position = power_spawn_areas[1].global_position
 	call_deferred("add_child", power_up_object)
 
+func spawn_jammer() -> void:
+	# only can be one active jammer
+	if is_jammer_active():
+		return
+	var jammer_object = jammer.instantiate()
+	jammer_object.global_position = orbit_spawn_point.position
+	jammer_object.orbit_target = planet
+	call_deferred("add_child", jammer_object)
+
 func explode_all_meteors() -> void:
 	for node in get_children():
 		if node is Meteor:
@@ -44,3 +58,6 @@ func explode_all_meteors() -> void:
 
 func meteor_count() -> int:
 	return get_children().filter(func(node): return node is Meteor).size()
+
+func is_jammer_active() -> bool:
+	return get_children().any(func(node): return node is Jammer)
