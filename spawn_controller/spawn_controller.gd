@@ -28,6 +28,9 @@ func new_spawns() -> void:
 		spawn_meteor()
 	if Scores.current % 5 == 0:
 		spawn_power_up()
+	if Scores.current > 100:
+		if Scores.current % 10:
+			spawn_jammer()
 
 func spawn_meteor() -> void:
 	var meteor_object = meteor.instantiate()

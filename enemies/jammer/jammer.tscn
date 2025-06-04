@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=4 uid="uid://5bg4p5k0f18e"]
+[gd_scene load_steps=18 format=4 uid="uid://5bg4p5k0f18e"]
 
 [ext_resource type="Script" uid="uid://i0j67ueqnlep" path="res://enemies/jammer/jammer.gd" id="1_aug71"]
 [ext_resource type="Shader" uid="uid://c65n72et05w0p" path="res://shaders/green_screen.gdshader" id="2_dr6ho"]
 [ext_resource type="Texture2D" uid="uid://56eletu8ihem" path="res://enemies/jammer/assets/Satellite_Satellite_BaseColor.png" id="2_frca7"]
 [ext_resource type="Script" uid="uid://cw4riqqjcojim" path="res://enemies/jammer/rotate.gd" id="3_xsdlv"]
 [ext_resource type="PackedScene" uid="uid://pdsbn4vujwqd" path="res://enemies/shield/enemy_shield.tscn" id="5_8db6w"]
+[ext_resource type="AudioStream" uid="uid://cscuar484a8gr" path="res://enemies/jammer/assets/explosion.wav" id="6_wimpd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xsdlv"]
 shader = ExtResource("2_dr6ho")
@@ -71,21 +72,38 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.8
 
+[sub_resource type="Curve" id="Curve_8db6w"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.983146, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_wimpd"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.156863)
+
+[sub_resource type="Curve" id="Curve_wimpd"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Jammer" type="Node2D"]
 script = ExtResource("1_aug71")
 metadata/_custom_type_script = "uid://brn6kg1c1nemr"
 
+[node name="Shield" parent="." instance=ExtResource("5_8db6w")]
+
 [node name="JammerArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+monitoring = false
+monitorable = false
 
 [node name="CS" type="CollisionPolygon2D" parent="JammerArea"]
 polygon = PackedVector2Array(-57, -9, -16, -9, -16, -24, -1, -38, 16, -24, 16, -10, 58, -9, 56, 4, 56, 4, 16, 4, 9, 10, 7, 35, -8, 34, -11, 10, -17, 5, -57, 4)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+[node name="JammerMesh" type="MeshInstance2D" parent="."]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_xsdlv")
 mesh = SubResource("QuadMesh_frca7")
 texture = SubResource("ViewportTexture_frca7")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="MeshInstance2D"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="JammerMesh"]
 position = Vector2(0, -38.725)
 emitting = false
 amount = 50
@@ -126,4 +144,49 @@ fov = 60.0
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
 layers = 256
 
-[node name="Shield" parent="." instance=ExtResource("5_8db6w")]
+[node name="ExplodeParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 80
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+emission_shape = 4
+emission_points = PackedVector2Array(20, 0, -20, 0, 0, 0)
+emission_colors = PackedColorArray()
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+angle_max = 360.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_8db6w")
+color_ramp = SubResource("Gradient_wimpd")
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 50.0
+gravity = Vector2(0, 0)
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+angle_max = 360.0
+scale_amount_min = 5.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_wimpd")
+color = Color(1, 1, 1, 0.254902)
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_wimpd")
+volume_db = -9.0
+
+[connection signal="shield_down" from="Shield" to="." method="_on_shield_down"]
+[connection signal="area_entered" from="JammerArea" to="." method="_on_jammer_area_entered"]
