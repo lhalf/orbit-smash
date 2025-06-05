@@ -196,7 +196,7 @@ volume_db = -7.0
 
 [node name="PulseTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 3.0
+wait_time = 4.0
 
 [connection signal="shield_down" from="Shield" to="." method="_on_shield_down"]
 [connection signal="area_entered" from="JammerArea" to="." method="_on_jammer_area_entered"]

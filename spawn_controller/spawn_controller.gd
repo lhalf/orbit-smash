@@ -31,7 +31,7 @@ func new_spawns() -> void:
 	if Scores.current % 5 == 0:
 		spawn_power_up()
 	if abs(Scores.current - last_jammer_at_score) > 50:
-		if Scores.current % 10:
+		if Scores.current % 15:
 			last_jammer_at_score = Scores.current
 			spawn_jammer()
 
