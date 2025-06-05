@@ -247,6 +247,7 @@ layout_mode = 2
 theme = ExtResource("8_vef74")
 theme_override_font_sizes/font_size = 40
 text = "v0.1.2"
+metadata/_edit_lock_ = true
 
 [node name="HiScoreMargin" type="MarginContainer" parent="MenuUI/Menu"]
 layout_mode = 1
