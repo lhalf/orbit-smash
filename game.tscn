@@ -246,7 +246,7 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 theme = ExtResource("8_vef74")
 theme_override_font_sizes/font_size = 40
-text = "v0.1.1"
+text = "v0.1.2"
 
 [node name="HiScoreMargin" type="MarginContainer" parent="MenuUI/Menu"]
 layout_mode = 1
