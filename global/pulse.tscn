@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://nsygd87b66ne"]
+
+[ext_resource type="Shader" uid="uid://dh350vwa3ysum" path="res://shaders/2d_shield.gdshader" id="1_m6ryy"]
+[ext_resource type="Script" uid="uid://dbkfin6eno2r6" path="res://global/pulse.gd" id="1_qw23a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qw23a"]
+shader = ExtResource("1_m6ryy")
+shader_parameter/Color_Shield = Color(0, 1, 1, 1)
+shader_parameter/Step = 0.0
+shader_parameter/Speed = Vector3(0, 0, 0)
+shader_parameter/Size_Inner = 0.0
+shader_parameter/Opaticy = -0.2
+shader_parameter/Size_Outer = 0.15
+
+[node name="Pulse" type="Node2D"]
+scale = Vector2(0.1, 0.1)
+script = ExtResource("1_qw23a")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_qw23a")
+custom_minimum_size = Vector2(500, 500)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2

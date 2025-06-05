@@ -237,10 +237,10 @@ grow_vertical = 2
 layout_mode = 0
 offset_right = 159.0
 offset_bottom = 72.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
 [node name="Version" type="Label" parent="MenuUI/Menu/VersionMargin"]
 layout_mode = 2
@@ -256,10 +256,10 @@ anchor_right = 1.0
 offset_left = -159.0
 offset_bottom = 72.0
 grow_horizontal = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
 [node name="HiScore" type="Label" parent="MenuUI/Menu/HiScoreMargin"]
 unique_name_in_owner = true
@@ -291,16 +291,16 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -183.0
-offset_top = -158.0
-offset_right = 183.0
+offset_left = -213.0
+offset_top = -218.0
+offset_right = 213.0
 grow_horizontal = 2
 grow_vertical = 0
-pivot_offset = Vector2(183, 79)
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+pivot_offset = Vector2(213, 109)
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
 [node name="PlayButton" type="Button" parent="MenuUI/Menu/PlayButtonContainer"]
 unique_name_in_owner = true
@@ -332,11 +332,11 @@ offset_left = -72.5
 offset_right = 72.5
 offset_bottom = 70.0
 grow_horizontal = 2
-pivot_offset = Vector2(112.5, 60)
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
+pivot_offset = Vector2(132.5, 80)
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
 
 [node name="Score" type="Label" parent="ScoreUI/Score/ScoreMargin"]
 layout_mode = 2

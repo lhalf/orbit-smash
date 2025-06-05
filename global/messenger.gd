@@ -40,3 +40,7 @@ func _input(_event):
 	if Input.is_key_pressed(KEY_M):
 		print("DEBUG: activate mirror")
 		PowerUps.activate_mirror.emit()
+	
+	if Input.is_key_pressed(KEY_1):
+		print("DEBUG: muting music")
+		Music.stop()

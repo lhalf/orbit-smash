@@ -39,6 +39,7 @@ var available_power_ups = [
 ]
 
 func _ready():
+	PowerUps.activate_jammer.connect(on_timeout)
 	current_power_up = available_power_ups[randi() % available_power_ups.size()]
 	timer.wait_time = current_power_up.lifetime
 	timer.connect("timeout", on_timeout)

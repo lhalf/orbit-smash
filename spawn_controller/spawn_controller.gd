@@ -11,6 +11,8 @@ class_name SpawnController extends Node2D
 
 var rng = RandomNumberGenerator.new()
 
+var last_jammer_at_score: int = 0
+
 func _ready():
 	Messenger.meteor_exploded.connect(new_spawns)
 	PowerUps.nuke.connect(explode_all_meteors)
@@ -28,8 +30,9 @@ func new_spawns() -> void:
 		spawn_meteor()
 	if Scores.current % 5 == 0:
 		spawn_power_up()
-	if Scores.current > 100:
+	if abs(Scores.current - last_jammer_at_score) > 50:
 		if Scores.current % 10:
+			last_jammer_at_score = Scores.current
 			spawn_jammer()
 
 func spawn_meteor() -> void:

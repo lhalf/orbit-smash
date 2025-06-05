@@ -31,6 +31,7 @@ func _ready():
 	PowerUps.activate_laser.connect(activate_laser)
 	PowerUps.activate_mirror.connect(activate_mirror)
 	PowerUps.spike_ball.connect(explode)
+	PowerUps.activate_jammer.connect(jammed)
 	
 	# when explode is over
 	explode_particles.connect("finished", _on_explode_finished)
@@ -125,6 +126,12 @@ func explode() -> void:
 
 func _on_explode_finished():
 	Messenger.game_over.emit()
+
+func jammed() -> void:
+	_on_infinite_charge_timer_timeout()
+	_on_laser_timer_timeout()
+	%Mirror.disable()
+	gravity = initial_gravity
 
 # infinite charge
 
