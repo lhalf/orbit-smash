@@ -2,7 +2,7 @@ class_name SpawnController extends Node2D
 
 @export var meteor_spawn_areas: Array[SpawnArea]
 @export var power_spawn_areas: Array[SpawnArea]
-@export var orbit_spawn_point: Marker2D
+@export var orbit_spawn_points: Array[Marker2D]
 @export var planet: Node2D
 
 @onready var meteor = preload("res://enemies/meteor/meteor.tscn")
@@ -31,7 +31,7 @@ func new_spawns() -> void:
 	if Scores.current % 5 == 0:
 		spawn_power_up()
 	if abs(Scores.current - last_jammer_at_score) > 50:
-		if Scores.current % 15 == 0:
+		if Scores.current % 30 == 0:
 			last_jammer_at_score = Scores.current
 			spawn_jammer()
 
@@ -53,9 +53,12 @@ func spawn_jammer() -> void:
 	if is_jammer_active():
 		return
 	var jammer_object = jammer.instantiate()
-	jammer_object.global_position = orbit_spawn_point.position
+	jammer_object.global_position = orbit_spawn_points.pick_random().position
 	jammer_object.orbit_target = planet
+	if Scores.current > 150:
+		jammer_object.spawn_with_shield = true
 	call_deferred("add_child", jammer_object)
+	
 
 func explode_all_meteors() -> void:
 	for node in get_children():

@@ -2,7 +2,10 @@ class_name Jammer extends OrbitingNode2D
 
 const FADE_IN_TIME: int = 3
 
+var spawn_with_shield: bool = false
+
 @onready var pulse = preload("res://global/pulse.tscn")
+@onready var shield = preload("res://enemies/shield/enemy_shield.tscn")
 
 func _enter_tree() -> void:
 	scale = Vector2(0,0)
@@ -16,6 +19,14 @@ func _ready() -> void:
 	speed_tween.tween_property(self, "orbit_speed", 0.4, FADE_IN_TIME)
 	speed_tween.finished.connect(_on_pulse_timer_timeout)
 	speed_tween.finished.connect(%PulseTimer.start)
+	if spawn_with_shield:
+		_add_shield()
+
+func _add_shield() -> void:
+	var shield_object = shield.instantiate()
+	shield_object.shield_down.connect(_on_shield_down)
+	add_child(shield_object)
+	%JammerArea.set_deferred("monitoring", false)
 
 func _on_shield_down() -> void:
 	%JammerArea.set_deferred("monitoring", true)

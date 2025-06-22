@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=4 uid="uid://5bg4p5k0f18e"]
+[gd_scene load_steps=18 format=4 uid="uid://5bg4p5k0f18e"]
 
 [ext_resource type="Script" uid="uid://i0j67ueqnlep" path="res://enemies/jammer/jammer.gd" id="1_aug71"]
 [ext_resource type="Shader" uid="uid://c65n72et05w0p" path="res://shaders/green_screen.gdshader" id="2_dr6ho"]
 [ext_resource type="Texture2D" uid="uid://56eletu8ihem" path="res://enemies/jammer/assets/Satellite_Satellite_BaseColor.png" id="2_frca7"]
 [ext_resource type="Script" uid="uid://cw4riqqjcojim" path="res://enemies/jammer/rotate.gd" id="3_xsdlv"]
-[ext_resource type="PackedScene" uid="uid://pdsbn4vujwqd" path="res://enemies/shield/enemy_shield.tscn" id="5_8db6w"]
 [ext_resource type="AudioStream" uid="uid://cscuar484a8gr" path="res://enemies/jammer/assets/explosion.wav" id="6_wimpd"]
 [ext_resource type="AudioStream" uid="uid://bwjxtoxh1mgvl" path="res://enemies/jammer/assets/jam.wav" id="7_rmv71"]
 
@@ -88,11 +87,8 @@ point_count = 2
 script = ExtResource("1_aug71")
 metadata/_custom_type_script = "uid://brn6kg1c1nemr"
 
-[node name="Shield" parent="." instance=ExtResource("5_8db6w")]
-
 [node name="JammerArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-monitoring = false
 monitorable = false
 
 [node name="CS" type="CollisionPolygon2D" parent="JammerArea"]
@@ -198,6 +194,5 @@ volume_db = -7.0
 unique_name_in_owner = true
 wait_time = 4.0
 
-[connection signal="shield_down" from="Shield" to="." method="_on_shield_down"]
 [connection signal="area_entered" from="JammerArea" to="." method="_on_jammer_area_entered"]
 [connection signal="timeout" from="PulseTimer" to="." method="_on_pulse_timer_timeout"]
